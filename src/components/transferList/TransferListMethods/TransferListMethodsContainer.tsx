@@ -72,7 +72,7 @@ export default function TransferListMethodsContainer() {
               onAllLeft={handleAllLeft}
               onToggle={handleToggle}
               checked={checked}
-              endpoint={endpointData.endpoint}
+              endpoint={endpointData.endpoint ?? ''}
             />
           </div>
         )

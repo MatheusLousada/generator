@@ -22,6 +22,8 @@ const TransferListMethods: React.FC<TransferListMethodsProps> = ({
   const { List, ListItem, Paper, FormHelperText, Button } = components;
   const { GridStyle, ButtonStyle } = styles;
   const { formData, setFormData, fileData } = useGeneratorContext();
+  const leftChecked = left.filter((value) => checked.indexOf(value) !== -1);
+  const rightChecked = right.filter((value) => checked.indexOf(value) !== -1);
 
   useEffect(() => {
     if (formData) {
@@ -41,19 +43,19 @@ const TransferListMethods: React.FC<TransferListMethodsProps> = ({
       setLeft(Object.keys(methods));
 
       // Atualize selectedMethods no objeto formData
-      const updatedSelectedEndpoints = formData.selectedEndpoints.map(
-        (selectedEndpoint) => {
-          if (selectedEndpoint.endpoint === endpoint) {
-            return {
-              ...selectedEndpoint,
-              selectedMethods: Object.keys(methods),
-            };
-          }
-          return selectedEndpoint;
-        }
-      );
+      // const updatedSelectedEndpoints = formData.selectedEndpoints.map(
+      //   (selectedEndpoint) => {
+      //     if (selectedEndpoint.endpoint === endpoint) {
+      //       return {
+      //         ...selectedEndpoint,
+      //         selectedMethods: Object.keys(methods),
+      //       };
+      //     }
+      //     return selectedEndpoint;
+      //   }
+      // );
 
-      setFormData(updatedSelectedEndpoints);
+      // setFormData(updatedSelectedEndpoints);
     }
   }, [fileData, endpoint, setLeft, setFormData]);
 
@@ -86,7 +88,12 @@ const TransferListMethods: React.FC<TransferListMethodsProps> = ({
         <Grid container spacing={2} justifyContent="center" alignItems="center">
           <Grid item>{customList(left)}</Grid>
           <Grid item>
-            <Grid container direction="column" alignItems="center" style={GridStyle}>
+            <Grid
+              container
+              direction="column"
+              alignItems="center"
+              style={GridStyle}
+            >
               <Button
                 variant="outlined"
                 size="small"
