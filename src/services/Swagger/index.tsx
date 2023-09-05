@@ -15,8 +15,7 @@ const SwaggerService = () => {
   };
 
   const readFile = async (file: File): Promise<any> => {
-    const service = FileService();
-    return await service.parse(file);
+    return await FileService.parse(file);
   };
 
   return {

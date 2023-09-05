@@ -56,6 +56,7 @@ interface Endpoints {
 
 interface FormData {
   selectedEndpoints: Endpoints[];
+  selectedComponents: string[];
 }
 
 interface GeneratorContextData {

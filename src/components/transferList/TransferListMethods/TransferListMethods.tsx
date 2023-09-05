@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
@@ -8,62 +8,85 @@ import { TransferListMethodsProps } from "./interfaces/transferList.interface";
 import { useGeneratorContext } from "../../../contexts/GeneratorContext";
 
 const TransferListMethods: React.FC<TransferListMethodsProps> = ({
-  left,
-  setLeft,
-  right,
-  onAllRight,
-  onCheckedRight,
-  onCheckedLeft,
-  onAllLeft,
-  onToggle,
-  checked,
   endpoint,
 }: TransferListMethodsProps) => {
   const { List, ListItem, Paper, FormHelperText, Button } = components;
   const { GridStyle, ButtonStyle } = styles;
   const { formData, setFormData, fileData } = useGeneratorContext();
+  const [left, setLeft] = useState<string[]>([]);
+  const [right, setRight] = useState<string[]>([]);
+  const [checked, setChecked] = useState<string[]>([]);
+  const [started, setStarted] = useState<boolean>(false);
   const leftChecked = left.filter((value) => checked.indexOf(value) !== -1);
   const rightChecked = right.filter((value) => checked.indexOf(value) !== -1);
 
-  useEffect(() => {
-    if (formData) {
-      console.log("formData: ", formData);
+  const handleToggle = (value: string) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
     }
-  }, [formData]);
+
+    setChecked(newChecked);
+  };
+
+  const handleAllRight = () => {
+    setRight([...right, ...left]);
+    setLeft([]);
+    setChecked([]);
+  };
+
+  const handleCheckedRight = () => {
+    setRight([...right, ...checked]);
+    setLeft(left.filter((value) => !checked.includes(value)));
+    setChecked([]);
+  };
+
+  const handleCheckedLeft = () => {
+    setLeft([...left, ...checked]);
+    setRight(right.filter((value) => !checked.includes(value)));
+    setChecked([]);
+  };
+
+  const handleAllLeft = () => {
+    setLeft([...left, ...right]);
+    setRight([]);
+    setChecked([]);
+  };
 
   useEffect(() => {
-    if (fileData) {
-      console.log("fileData: ", fileData);
-    }
-  }, [fileData]);
-
-  useEffect(() => {
-    if (fileData && endpoint) {
+    if (fileData && endpoint && !started) {
       const methods = fileData.paths[endpoint];
       setLeft(Object.keys(methods));
-
-      // Atualize selectedMethods no objeto formData
-      // const updatedSelectedEndpoints = formData.selectedEndpoints.map(
-      //   (selectedEndpoint) => {
-      //     if (selectedEndpoint.endpoint === endpoint) {
-      //       return {
-      //         ...selectedEndpoint,
-      //         selectedMethods: Object.keys(methods),
-      //       };
-      //     }
-      //     return selectedEndpoint;
-      //   }
-      // );
-
-      // setFormData(updatedSelectedEndpoints);
+      setStarted(true);
     }
-  }, [fileData, endpoint, setLeft, setFormData]);
+  }, [fileData, endpoint, started, formData]);
+
+  useEffect(() => {
+    if (right && formData && endpoint) {
+      setFormData((prevFormData) => {
+        const updatedSelectedEndpoints = prevFormData.selectedEndpoints.map(
+          (item) =>
+            item.endpoint === endpoint
+              ? { ...item, selectedMethods: right }
+              : item
+        );
+        return {
+          ...prevFormData,
+          selectedEndpoints: updatedSelectedEndpoints,
+        };
+      });
+    }
+  }, [right, endpoint]);
 
   const customList = (items: readonly string[]) => (
     <Paper>
       <List dense role="list">
         {items.map((value: string) => (
-          <ListItem key={value} role="listitem" onClick={() => onToggle(value)}>
+          <ListItem key={value} role="listitem" onClick={handleToggle(value)}>
             <ListItemIcon>
               <Checkbox
                 checked={checked.indexOf(value) !== -1}
@@ -97,7 +120,7 @@ const TransferListMethods: React.FC<TransferListMethodsProps> = ({
               <Button
                 variant="outlined"
                 size="small"
-                onClick={onAllRight}
+                onClick={handleAllRight}
                 disabled={left.length === 0}
                 aria-label="move all right"
                 sx={ButtonStyle}
@@ -107,7 +130,7 @@ const TransferListMethods: React.FC<TransferListMethodsProps> = ({
               <Button
                 variant="outlined"
                 size="small"
-                onClick={onCheckedRight}
+                onClick={handleCheckedRight}
                 disabled={leftChecked.length === 0}
                 aria-label="move selected right"
                 sx={ButtonStyle}
@@ -117,7 +140,7 @@ const TransferListMethods: React.FC<TransferListMethodsProps> = ({
               <Button
                 variant="outlined"
                 size="small"
-                onClick={onCheckedLeft}
+                onClick={handleCheckedLeft}
                 disabled={rightChecked.length === 0}
                 aria-label="move selected left"
                 sx={ButtonStyle}
@@ -127,7 +150,7 @@ const TransferListMethods: React.FC<TransferListMethodsProps> = ({
               <Button
                 variant="outlined"
                 size="small"
-                onClick={onAllLeft}
+                onClick={handleAllLeft}
                 disabled={right.length === 0}
                 aria-label="move all left"
                 sx={ButtonStyle}

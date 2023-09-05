@@ -1,9 +1,10 @@
 import jsYaml from "js-yaml";
 
-const FileService = () => {
-  const parse = async (file: File): Promise<any> => {
+const FileService = {
+  parse: async (file: File): Promise<any> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
+
       reader.onload = (e) => {
         if (e.target) {
           const fileContents = e.target.result as string;
@@ -19,6 +20,7 @@ const FileService = () => {
             case "json":
               try {
                 data = JSON.parse(fileContents);
+                resolve(data);
               } catch (error) {
                 reject(error);
               }
@@ -26,6 +28,7 @@ const FileService = () => {
             case "yaml":
               try {
                 data = jsYaml.load(fileContents);
+                resolve(data);
               } catch (error) {
                 reject(error);
               }
@@ -34,20 +37,26 @@ const FileService = () => {
               reject(new Error("Tipo de arquivo não suportado"));
               break;
           }
-
-          if (data) {
-            resolve(data);
-          }
         }
       };
 
       reader.readAsText(file);
     });
-  };
+  },
 
-  return {
-    parse,
-  };
+  createAndDownloadZip: async (zipName: string, content: Blob) => {
+    const zipBlob = new Blob([content], { type: "application/zip" });
+    const zipURL = window.URL.createObjectURL(zipBlob);
+
+    const link = document.createElement("a");
+    link.href = zipURL;
+    link.download = zipName;
+    link.style.display = "none";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(zipURL);
+  },
 };
 
 export default FileService;

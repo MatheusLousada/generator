@@ -13,7 +13,8 @@ export const GeneratorProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const initialFormData: FormData = {
-    selectedEndpoints: []
+    selectedEndpoints: [],
+    selectedComponents: [],
   };
 
   const [formData, setFormData] = useState<FormData>(initialFormData);
