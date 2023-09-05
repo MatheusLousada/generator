@@ -6,7 +6,7 @@ import ListGenerator from "../../generators/List";
 const GeneratorService = {
   generateAndDownloadFiles: async () => {
     const zip = new JSZip();
-    const folderName = "arquivos_zipados";
+    const folderName = "arquivos";
     const folder = zip.folder(folderName);
 
     if (!folder) {
@@ -38,12 +38,12 @@ const GeneratorService = {
 
     listFolder.file("ListContainer.tsx", listContainerContent);
     listFolder.file("List.tsx", listContent);
-    requestsFolder.file("ListRequests.txt", requestContent);
+    requestsFolder.file("ListRequests.tsx", requestContent);
 
     const content = await zip.generateAsync({ type: "blob" });
 
     try {
-      await FileService.createAndDownloadZip("arquivos.zip", content);
+      await FileService.createAndDownloadZip("arquivos_zipados.zip", content);
     } catch (error) {
       toast.error("Erro ao criar e fazer o download do arquivo zip");
     }

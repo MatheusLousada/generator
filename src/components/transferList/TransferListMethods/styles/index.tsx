@@ -39,7 +39,6 @@ const components = {
     fontSize: "16px",
     fontWeight: 200,
     marginBottom: "1rem",
-    marginLeft: "1rem",
     padding: "0.5rem",
     background: "#e3fcf7",
     borderRadius: "0.2rem",
