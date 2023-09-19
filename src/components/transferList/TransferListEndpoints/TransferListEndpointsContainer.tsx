@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useGeneratorContext } from "../../../contexts/GeneratorContext";
 import TransferListEndpoints from "./TransferListEndpoints";
-import { components } from "./styles";
+import { components, styles } from "./styles";
 
 export default function TransferListEndpointsContainer() {
   const [left, setLeft] = useState<readonly string[]>([]);
@@ -71,13 +71,7 @@ export default function TransferListEndpointsContainer() {
 
   return (
     <div
-      style={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        marginBottom: "3rem",
-      }}
+      style={styles.ContainerStyle}
     >
       <Title>Endpoints</Title>
       <TransferListEndpoints

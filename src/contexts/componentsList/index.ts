@@ -1,0 +1,1 @@
+export const componentsList = ["table", "list", "button"];

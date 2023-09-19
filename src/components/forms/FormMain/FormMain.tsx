@@ -8,7 +8,7 @@ import TransferListMethodsContainer from "../../transferList/TransferListMethods
 import ListComponentsContainer from "../../list/ListComponents/ListComponentsContainer";
 import ButtonGeneratorContainer from "../../button/ButtonGenerator/ButtonGeneratorContainer";
 
-const FormMain: React.FC<FormMainProps> = ({ onInputChange, onFileChange }) => {
+const FormMain: React.FC<FormMainProps> = ({ onFileChange }) => {
   const { fileData } = useGeneratorContext();
   const { Form, Paper } = components;
 
@@ -16,10 +16,14 @@ const FormMain: React.FC<FormMainProps> = ({ onInputChange, onFileChange }) => {
     <Paper variant="elevation" elevation={2}>
       <Form>
         <InputFile onFileChange={onFileChange} />
-        {fileData ? <TransferListEndpointsContainer /> : null}
-        {fileData ? <TransferListMethodsContainer /> : null}
-        {fileData ? <ListComponentsContainer /> : null}
-        {fileData ? <ButtonGeneratorContainer /> : null}
+        {fileData && (
+          <>
+            <TransferListEndpointsContainer />
+            <TransferListMethodsContainer />
+            <ListComponentsContainer />
+            <ButtonGeneratorContainer />
+          </>
+        )}
       </Form>
     </Paper>
   );

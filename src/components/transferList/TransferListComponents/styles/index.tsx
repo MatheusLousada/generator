@@ -18,7 +18,7 @@ const components = {
 
   ListItem: styled(ListItem)({
     display: "flex",
-    alignItems: "center",
+    aligntems: "center",
     cursor: "pointer",
   }),
 

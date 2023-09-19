@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 
 interface ButtonGeneratorProps {
-  onClick: () => void; // Defina o tipo da prop onClick como uma função sem argumentos
+  onClick: () => void;
 }
 
 export default function ButtonGenerator({ onClick }: ButtonGeneratorProps) {

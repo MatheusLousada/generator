@@ -54,9 +54,21 @@ interface Endpoints {
   selectedMethods?: string[];
 }
 
+interface ComponentsEndpoints {
+  id?: number;
+  endpoint?: string;
+  method?: string;
+}
+
+interface Components {
+  type?: string;
+  amount?: number;
+  endpoints?: ComponentsEndpoints[];
+}
+
 interface FormData {
   selectedEndpoints: Endpoints[];
-  selectedComponents: string[];
+  selectedComponents: Components[];
 }
 
 interface GeneratorContextData {
@@ -64,6 +76,7 @@ interface GeneratorContextData {
   setFormData: Dispatch<SetStateAction<FormData>>;
   fileData: FileData | null;
   setFileData: Dispatch<SetStateAction<FileData | null>>;
+  componentsList: string[];
 }
 
-export type { FileData, FormData, GeneratorContextData, Endpoints };
+export type { FileData, FormData, GeneratorContextData, Endpoints, Components };

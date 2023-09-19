@@ -4,12 +4,12 @@ import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import { components, styles } from "./styles";
 import { Grid } from "@mui/material";
-import { TransferListMethodsProps } from "./interfaces/transferList.interface";
+import { TransferListComponentsProps } from "./interfaces/transferList.interface";
 import { useGeneratorContext } from "../../../contexts/GeneratorContext";
 
-const TransferListMethods: React.FC<TransferListMethodsProps> = ({
+const TransferListComponents: React.FC<TransferListComponentsProps> = ({
   endpoint,
-}: TransferListMethodsProps) => {
+}: TransferListComponentsProps) => {
   const { List, ListItem, Paper, FormHelperText, Button } = components;
   const { GridStyle, ButtonStyle } = styles;
   const { formData, setFormData, fileData } = useGeneratorContext();
@@ -98,7 +98,7 @@ const TransferListMethods: React.FC<TransferListMethodsProps> = ({
                 color="success"
               />
             </ListItemIcon>
-            <ListItemText primary={value.toUpperCase()} />
+            <ListItemText primary={value} />
           </ListItem>
         ))}
       </List>
@@ -171,4 +171,4 @@ const TransferListMethods: React.FC<TransferListMethodsProps> = ({
   );
 };
 
-export default TransferListMethods;
+export default TransferListComponents;

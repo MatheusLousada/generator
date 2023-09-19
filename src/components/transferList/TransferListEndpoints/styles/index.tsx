@@ -57,9 +57,18 @@ const ButtonStyle: CSSProperties = {
   },
 };
 
+const ContainerStyle: CSSProperties = {
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  marginBottom: "3rem",
+};
+
 const styles = {
   GridStyle,
   ButtonStyle,
+  ContainerStyle,
 };
 
 export { components, styles };

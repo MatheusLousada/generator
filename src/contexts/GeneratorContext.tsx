@@ -4,6 +4,7 @@ import {
   FormData,
   GeneratorContextData,
 } from "./interfaces/generator.interface";
+import { componentsList } from "./componentsList";
 
 const GeneratorContext = createContext<GeneratorContextData | undefined>(
   undefined
@@ -22,7 +23,7 @@ export const GeneratorProvider: React.FC<{ children: ReactNode }> = ({
 
   return (
     <GeneratorContext.Provider
-      value={{ formData, setFormData, fileData, setFileData }}
+      value={{ formData, setFormData, fileData, setFileData, componentsList }}
     >
       {children}
     </GeneratorContext.Provider>
