@@ -4,8 +4,8 @@ import { CSSProperties } from "@mui/material/styles/createMixins";
 
 const components = {
   Paper: styled(Paper)({
-    width: "415px",
-    height: "230px",
+    width: "30rem",
+    height: "18rem",
     overflow: "auto",
     transition: "all 0.3s",
   }),
@@ -38,7 +38,7 @@ const components = {
     color: "#00684a",
     fontSize: "24px",
     fontWeight: 400,
-    marginBottom: "1rem",
+    marginBottom: "5rem",
   }),
 };
 
@@ -58,11 +58,12 @@ const ButtonStyle: CSSProperties = {
 };
 
 const ContainerStyle: CSSProperties = {
+  marginTop: '8%',
   width: "100%",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
-  marginBottom: "3rem",
+  padding: '0rem 2rem'
 };
 
 const styles = {

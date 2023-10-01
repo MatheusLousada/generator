@@ -9,11 +9,7 @@ import { useGeneratorContext } from "../../../contexts/GeneratorContext";
 import { faList } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ModalComponentsEndpoints from "../../modals/ModalComponentsEndpoints";
-
-interface ListComponentsProps {
-  onToggle: (value: string) => () => void;
-  checked: string[];
-}
+import { ListComponentsProps } from "./interfaces/liste-components.interface";
 
 export default function ListComponents({
   onToggle,
@@ -23,10 +19,8 @@ export default function ListComponents({
     [key: string]: number;
   }>({});
   const { setFormData, componentsList } = useGeneratorContext();
-
   const [modalComponent, setModalComponent] = React.useState("");
   const [openModal, setOpenModal] = React.useState(false);
-
   const { ListItem, IconButton } = components;
 
   const handleOpenModal = (component: string) => {

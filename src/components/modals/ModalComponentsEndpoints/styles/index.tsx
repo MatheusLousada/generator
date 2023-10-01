@@ -1,5 +1,6 @@
 import { FormHelperText } from "@mui/material";
 import { styled } from "@mui/system";
+import { CSSProperties } from "@mui/material/styles/createMixins";
 
 const components = {
   Title: styled("div")({
@@ -17,4 +18,29 @@ const components = {
   }),
 };
 
-export { components };
+const ButtonStyle: CSSProperties = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "50%",
+  bgcolor: "background.paper",
+  p: 4,
+  maxHeight: "80vh",
+  overflowY: "auto",
+  "&::-webkit-scrollbar": {
+    width: "8px",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    background: "#888",
+  },
+  "&::-webkit-scrollbar-thumb:hover": {
+    background: "#555",
+  },
+};
+
+const styles = {
+  ButtonStyle,
+};
+
+export { components, styles };

@@ -1,21 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { useGeneratorContext } from "../../../contexts/GeneratorContext";
 import TransferListEndpoints from "./TransferListEndpoints";
-import { components, styles } from "./styles";
+import { styles } from "./styles";
 
 export default function TransferListEndpointsContainer() {
   const [left, setLeft] = useState<readonly string[]>([]);
   const [right, setRight] = useState<readonly string[]>([]);
   const [checked, setChecked] = useState<readonly string[]>([]);
   const { fileData, setFormData, formData } = useGeneratorContext();
-  const { Title } = components;
 
   useEffect(() => {
     if (fileData) {
       const endpoints = Object.keys(fileData.paths);
-      setLeft(endpoints);
+
+      if (formData) {
+        const selectedEndpointNames = formData.selectedEndpoints.map(
+          (endpoint) => endpoint.endpoint
+        );
+        const filteredEndpoints = endpoints.filter(
+          (endpoint) => !selectedEndpointNames.includes(endpoint)
+        );
+        const filteredEndpointsSelecteds = endpoints.filter(
+          (endpoint) => selectedEndpointNames.includes(endpoint)
+        );
+        setLeft(filteredEndpoints);
+        setRight(filteredEndpointsSelecteds);
+      } else {
+        setLeft(endpoints);
+      }
     }
-  }, [fileData]);
+  }, []);
 
   useEffect(() => {
     if (right && fileData) {
@@ -23,14 +37,13 @@ export default function TransferListEndpointsContainer() {
         endpoint,
         methods: fileData.paths[endpoint],
       }));
-  
+
       setFormData({
         ...formData,
         selectedEndpoints,
       });
     }
   }, [right, fileData]);
-  
 
   const handleToggle = (value: string) => () => {
     const currentIndex = checked.indexOf(value);
@@ -46,34 +59,31 @@ export default function TransferListEndpointsContainer() {
   };
 
   const handleAllRight = () => {
-    setRight(right.concat(left));
+    setRight([...right, ...left]);
     setLeft([]);
     setChecked([]);
   };
 
   const handleCheckedRight = () => {
-    setRight(right.concat(checked));
+    setRight([...right, ...checked]);
     setLeft(left.filter((value) => !checked.includes(value)));
     setChecked([]);
   };
 
   const handleCheckedLeft = () => {
-    setLeft(left.concat(checked));
+    setLeft([...left, ...checked]);
     setRight(right.filter((value) => !checked.includes(value)));
     setChecked([]);
   };
 
   const handleAllLeft = () => {
-    setLeft(left.concat(right));
+    setLeft([...left, ...right]);
     setRight([]);
     setChecked([]);
   };
 
   return (
-    <div
-      style={styles.ContainerStyle}
-    >
-      <Title>Endpoints</Title>
+    <div style={styles.ContainerStyle}>
       <TransferListEndpoints
         left={left}
         right={right}

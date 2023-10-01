@@ -40,7 +40,7 @@ function ListComponentsEndpoints({
                   <ListItemText primary={`${componentToUpper} ${i + 1}`} style={{marginLeft: '5px'}}/>
                 </div>
                 <div>
-                  <ListEndpoints component={component} />
+                  <ListEndpoints component={component} index={i + 1} />
                 </div>
               </div>
             </ListItem>

@@ -2,7 +2,7 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { ModalComponentsEndpointsProps } from "./interfaces/modalComponentsEndpoints.interface";
-import { components } from "./styles";
+import { components, styles } from "./styles";
 import { useGeneratorContext } from "../../../contexts/GeneratorContext";
 import ListComponentsEndpoints from "../../list/ListComponentsEndpoints";
 
@@ -27,27 +27,7 @@ function ModalComponentsEndpoints({
       aria-describedby="modal-description"
     >
       <Box
-        sx={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "50%",
-          bgcolor: "background.paper",
-          boxShadow: 24,
-          p: 4,
-          maxHeight: "80vh",
-          overflowY: "auto",
-          "&::-webkit-scrollbar": {
-            width: "8px",
-          },
-          "&::-webkit-scrollbar-thumb": {
-            background: "#888",
-          },
-          "&::-webkit-scrollbar-thumb:hover": {
-            background: "#555",
-          },
-        }}
+        sx={styles.ButtonStyle}
       >
         <div
           style={{

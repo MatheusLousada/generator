@@ -1,10 +1,10 @@
 import React from "react";
-import FormMain from "./FormMain";
+import FormImportFile from "./FormImportFile";
 import SwaggerService from "../../../services/Swagger";
 import { toast } from "react-toastify";
 import { useGeneratorContext } from "../../../contexts/GeneratorContext";
 
-const FormMainContainer: React.FC = () => {
+const FormImportFileContainer: React.FC = () => {
   const swaggerService = SwaggerService();
   const { setFormData, setFileData } = useGeneratorContext();
 
@@ -30,7 +30,7 @@ const FormMainContainer: React.FC = () => {
     }
   };
 
-  return <FormMain onInputChange={handleInput} onFileChange={handleFile} />;
+  return <FormImportFile onInputChange={handleInput} onFileChange={handleFile} />;
 };
 
-export default FormMainContainer;
+export default FormImportFileContainer;

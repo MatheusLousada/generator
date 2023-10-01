@@ -55,15 +55,18 @@ interface Endpoints {
 }
 
 interface ComponentsEndpoints {
-  id?: number;
   endpoint?: string;
   method?: string;
+}
+interface ComponentsEndpointsGroup {
+  id: number;
+  endpoints: ComponentsEndpoints[];
 }
 
 interface Components {
   type?: string;
   amount?: number;
-  endpoints?: ComponentsEndpoints[];
+  endpoints?: ComponentsEndpointsGroup[];
 }
 
 interface FormData {
@@ -79,4 +82,4 @@ interface GeneratorContextData {
   componentsList: string[];
 }
 
-export type { FileData, FormData, GeneratorContextData, Endpoints, Components };
+export type { FileData, FormData, GeneratorContextData, Endpoints, Components, ComponentsEndpointsGroup, ComponentsEndpoints };

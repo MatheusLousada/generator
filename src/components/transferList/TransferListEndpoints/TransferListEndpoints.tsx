@@ -22,7 +22,7 @@ const TransferListEndpoints: React.FC<TransferListEndpointsProps> = ({
   const { GridStyle, ButtonStyle } = styles;
 
   const customList = (items: readonly string[]) => (
-    <Paper>
+    <Paper variant={"elevation"} elevation={3}>
       <List dense role="list">
         {items.map((value: string) => {
           const labelId = `transfer-list-item-${value}-label`;

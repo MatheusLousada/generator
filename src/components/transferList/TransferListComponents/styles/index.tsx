@@ -61,6 +61,7 @@ const ButtonStyle: CSSProperties = {
 };
 
 const ContainerStyle: CSSProperties = {
+  marginTop: '2%',
   width: "100%",
   display: "flex",
   flexDirection: "column",

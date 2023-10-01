@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileImport } from "@fortawesome/free-solid-svg-icons";
 import { InputFileProps } from "./interfaces/InputFile.interface";
-import { components, styles } from "../../forms/FormMain/styles";
+import { components, styles } from "../../forms/FormImportFile/styles";
 
 const InputFile: React.FC<InputFileProps> = ({ onFileChange }) => {
   const accept = ".json, .yaml";

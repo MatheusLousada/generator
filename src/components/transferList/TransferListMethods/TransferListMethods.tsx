@@ -82,6 +82,18 @@ const TransferListMethods: React.FC<TransferListMethodsProps> = ({
     }
   }, [right, endpoint]);
 
+  useEffect(() => {
+    if (fileData && endpoint) {
+      const methods = fileData.paths[endpoint];
+      const endpointSelected = formData.selectedEndpoints.find(item => item.endpoint === endpoint);
+      const methodsSelecteds = endpointSelected ? endpointSelected.selectedMethods : [];
+      const methodNotSelecteds = Object.keys(methods).filter(method => methodsSelecteds && !methodsSelecteds.includes(method));
+  
+      setLeft(methodNotSelecteds);
+      if (methodsSelecteds) setRight(methodsSelecteds);
+    }
+  }, []);  
+  
   const customList = (items: readonly string[]) => (
     <Paper>
       <List dense role="list">

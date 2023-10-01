@@ -25,7 +25,6 @@ const components = {
   InputLabelFile: styled(FormLabel)({
     display: "flex",
     width: "95%",
-    minHeight: 150,
     border: "1px dashed #00ed64",
     padding: "1rem",
     borderRadius: "4px",
@@ -38,7 +37,6 @@ const components = {
     justifyContent: "center",
     alignItems: "center",
     fontSize: "0.9rem",
-    background: "#e3fcf7",
     color: "#00684a",
   }),
 
@@ -49,7 +47,7 @@ const components = {
 
   Paper: styled(Paper)({
     width: "90%",
-    minHeight: "85vh",
+    minHeight: "55vh"
   }),
 };
 
@@ -70,7 +68,7 @@ const DivHelperText: CSSProperties = {
 
 const FileImportIcon: CSSProperties = {
   marginTop: "25px",
-  fontSize: "35px",
+  fontSize: "25px",
   color: "#00684a",
 };
 

@@ -1,0 +1,27 @@
+import React from "react";
+import { Step, StepLabel, Stepper } from "@mui/material";
+import { StepHeaderProps } from "../interfaces/step-header.interface";
+import styles from "./styles";
+
+const StepHeader: React.FC<StepHeaderProps> = ({ steps, activeStep }) => {
+  return (
+    <Stepper
+      activeStep={activeStep}
+      alternativeLabel
+      style={styles.StepperStyle}
+    >
+      {steps.map((label, index) => (
+        <Step key={label}>
+          <StepLabel>
+            <div
+            style={styles.StepperDivStyle}>
+              {label}
+            </div>
+          </StepLabel>
+        </Step>
+      ))}
+    </Stepper>
+  );
+};
+
+export default StepHeader;
