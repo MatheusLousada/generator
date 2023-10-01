@@ -3,12 +3,13 @@ import { StepContentsMap, StepContentsProps } from "../interfaces/step-contents.
 import FormImportFileContainer from "../../forms/FormImportFile/FormImportFileContainer";
 import TransferListEndpointsContainer from "../../transferList/TransferListEndpoints/TransferListEndpointsContainer";
 import TransferListMethodsContainer from "../../transferList/TransferListComponents/TransferListComponentsContainer";
+import ListComponentsContainer from "../../list/ListComponents/ListComponentsContainer";
 
 const stepContentsMap: StepContentsMap = {
   0: <FormImportFileContainer />,
   1: <TransferListEndpointsContainer />,
   2: <TransferListMethodsContainer />,
-  3: <div>Conteúdo de Componentes</div>,
+  3: <ListComponentsContainer />,
   4: <div>Conteúdo de Requisições</div>,
 };
 

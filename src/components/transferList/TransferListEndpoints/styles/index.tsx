@@ -51,7 +51,7 @@ const ButtonStyle: CSSProperties = {
   color: "#00684a",
   transition: "all 0.3s",
   "&:hover": {
-    backgroundColor: "#e3fcf7",
+    backgroundColor: "#00ed64",
     border: "solid 1px #00684a",
     color: "#00684a",
   },

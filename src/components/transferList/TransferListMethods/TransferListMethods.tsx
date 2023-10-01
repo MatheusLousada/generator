@@ -58,6 +58,12 @@ const TransferListMethods: React.FC<TransferListMethodsProps> = ({
   };
 
   useEffect(() => {
+    console.log('formData: ')
+    console.log(formData)
+    console.log('------------------')
+  }, [formData]);
+
+  useEffect(() => {
     if (fileData && endpoint && !started) {
       const methods = fileData.paths[endpoint];
       setLeft(Object.keys(methods));
@@ -83,12 +89,37 @@ const TransferListMethods: React.FC<TransferListMethodsProps> = ({
   }, [right, endpoint]);
 
   useEffect(() => {
+    console.log('formData ********** : ')
+    console.log(formData)
+    console.log('------------------')
     if (fileData && endpoint) {
       const methods = fileData.paths[endpoint];
+      console.log('methods: ')
+      console.log(methods)
+      console.log('------------------')
+
       const endpointSelected = formData.selectedEndpoints.find(item => item.endpoint === endpoint);
-      const methodsSelecteds = endpointSelected ? endpointSelected.selectedMethods : [];
+
+      console.log('formData: ')
+      console.log(formData)
+      console.log('------------------')
+
+      console.log('endpointSelected: ')
+      console.log(endpointSelected)
+      console.log('------------------')
+
+      const methodsSelecteds = endpointSelected && endpointSelected.selectedMethods ? endpointSelected.selectedMethods : [];
+      
+      console.log('methodsSelecteds: ')
+      console.log(methodsSelecteds)
+      console.log('------------------')
+
       const methodNotSelecteds = Object.keys(methods).filter(method => methodsSelecteds && !methodsSelecteds.includes(method));
-  
+            
+      console.log('methodNotSelecteds: ')
+      console.log(methodNotSelecteds)
+      console.log('------------------')
+
       setLeft(methodNotSelecteds);
       if (methodsSelecteds) setRight(methodsSelecteds);
     }

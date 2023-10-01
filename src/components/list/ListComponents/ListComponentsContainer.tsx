@@ -39,11 +39,11 @@ export default function ListComponentsContainer() {
     setChecked(newChecked);
   };
 
-  // useEffect(() => {
-  //   console.log('formData: ')
-  //   console.log(formData)
-  //   console.log('----------------')
-  // }, [formData]);
+  useEffect(() => {
+    console.log('formData: ')
+    console.log(formData)
+    console.log('----------------')
+  }, [formData]);
 
   return (
     <>

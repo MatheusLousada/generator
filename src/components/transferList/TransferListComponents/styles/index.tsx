@@ -37,10 +37,10 @@ const components = {
     textAlign: "initial",
     color: "#00684a",
     fontSize: "16px",
-    fontWeight: 200,
+    fontWeight: 400,
     marginBottom: "1rem",
     padding: "0.5rem",
-    background: "#e3fcf7",
+    background: "#00ed64",
     borderRadius: "0.2rem",
   }),
 };
@@ -54,7 +54,7 @@ const ButtonStyle: CSSProperties = {
   color: "#00684a",
   transition: "all 0.3s",
   "&:hover": {
-    backgroundColor: "#e3fcf7",
+    backgroundColor: "#00ed64",
     border: "solid 1px #00684a",
     color: "#00684a",
   },

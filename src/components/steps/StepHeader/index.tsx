@@ -4,6 +4,22 @@ import { StepHeaderProps } from "../interfaces/step-header.interface";
 import styles from "./styles";
 
 const StepHeader: React.FC<StepHeaderProps> = ({ steps, activeStep }) => {
+  const getStepIconStyle = (stepIndex: number) => {
+    if (stepIndex === activeStep) {
+      return {
+        color: "#00ed64",
+      };
+    } else if (stepIndex < activeStep) {
+      return {
+        color: "#00ed64",
+      };
+    } else {
+      return {
+        color: "gray",
+      };
+    }
+  };
+
   return (
     <Stepper
       activeStep={activeStep}
@@ -12,11 +28,12 @@ const StepHeader: React.FC<StepHeaderProps> = ({ steps, activeStep }) => {
     >
       {steps.map((label, index) => (
         <Step key={label}>
-          <StepLabel>
-            <div
-            style={styles.StepperDivStyle}>
-              {label}
-            </div>
+          <StepLabel
+            StepIconProps={{
+              style: getStepIconStyle(index),
+            }}
+          >
+            <div style={styles.StepperDivStyle}>{label}</div>
           </StepLabel>
         </Step>
       ))}
