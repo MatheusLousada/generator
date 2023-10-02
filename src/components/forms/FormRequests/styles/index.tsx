@@ -48,7 +48,8 @@ const components = {
 
   Paper: styled(Paper)({
     width: "90%",
-    minHeight: "55vh"
+    minHeight: "55vh",
+    marginTop: '4%'
   }),
 };
 

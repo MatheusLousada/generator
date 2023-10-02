@@ -29,8 +29,10 @@ const components = {
 };
 
 const ListStyle: CSSProperties = {
+  marginTop: '2rem',
   width: "100%",
   maxWidth: 360,
+  border: 'solid 1px #00684a'
 };
 
 const ListItemButton: CSSProperties = {

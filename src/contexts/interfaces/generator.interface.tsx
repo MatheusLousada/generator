@@ -70,6 +70,7 @@ interface Components {
 }
 
 interface FormData {
+  baseURL: string;
   selectedEndpoints: Endpoints[];
   selectedComponents: Components[];
 }
@@ -82,4 +83,12 @@ interface GeneratorContextData {
   componentsList: string[];
 }
 
-export type { FileData, FormData, GeneratorContextData, Endpoints, Components, ComponentsEndpointsGroup, ComponentsEndpoints };
+export type {
+  FileData,
+  FormData,
+  GeneratorContextData,
+  Endpoints,
+  Components,
+  ComponentsEndpointsGroup,
+  ComponentsEndpoints,
+};

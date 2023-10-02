@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import ListComponents from "./ListComponents";
 import { useGeneratorContext } from "../../../contexts/GeneratorContext";
-import { Components, FormData } from "../../../contexts/interfaces/generator.interface";
-import { components } from "./styles";
+import {
+  Components,
+  FormData,
+} from "../../../contexts/interfaces/generator.interface";
 
 export default function ListComponentsContainer() {
   const [checked, setChecked] = React.useState<string[]>([""]);
-  const { Title } = components;
   const { formData, setFormData } = useGeneratorContext();
 
   const handleToggle = (value: string) => () => {
@@ -40,18 +41,10 @@ export default function ListComponentsContainer() {
   };
 
   useEffect(() => {
-    console.log('formData: ')
-    console.log(formData)
-    console.log('----------------')
+    console.log("formData: ");
+    console.log(formData);
+    console.log("----------------");
   }, [formData]);
 
-  return (
-    <>
-      <Title>Componentes</Title>
-      <ListComponents
-        onToggle={handleToggle}
-        checked={checked}
-      />
-    </>
-  );
+  return <ListComponents onToggle={handleToggle} checked={checked} />;
 }

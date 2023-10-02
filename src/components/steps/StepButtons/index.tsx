@@ -5,6 +5,7 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { StepButtonsProps } from "../interfaces/step-buttons.interface";
 import styles from "./styles";
 import { useGeneratorContext } from "../../../contexts/GeneratorContext";
+import ButtonGeneratorContainer from "../../button/ButtonGenerator/ButtonGeneratorContainer";
 
 const StepButtons: React.FC<StepButtonsProps> = ({
   activeStep,
@@ -21,39 +22,36 @@ const StepButtons: React.FC<StepButtonsProps> = ({
           onClick={handleBack}
           variant="outlined"
           style={
-            activeStep === 0
-              ? styles.ListItemButtonGray
-              : styles.ListItemButton
+            activeStep === 0 ? styles.ListItemButtonGray : styles.ListItemButton
           }
         >
           <FontAwesomeIcon
             icon={faArrowLeft}
             style={
               activeStep === 0
-              ? styles.FontAwesomeIconStyleGray
-              : styles.FontAwesomeIconStyleGreen}
+                ? styles.FontAwesomeIconStyleGray
+                : styles.FontAwesomeIconStyleGreen
+            }
           />
         </Button>
 
-        <Button
-          variant="contained"
-          style={!fileData
-            ? styles.TextFieldPropsGray
-            : styles.TextFieldProps}
-          onClick={handleNext}
-          disabled={!fileData}
-        >
-          {activeStep === steps.length - 1 ? (
-            "Gerar arquivos"
-          ) : (
-            <>
-              <FontAwesomeIcon
-                icon={faArrowRight}
-                style={styles.FontAwesomeIconStyleWhite}
-              />
-            </>
-          )}
-        </Button>
+        {activeStep === steps.length - 1 ? (
+          <ButtonGeneratorContainer />
+        ) : (
+          <Button
+            variant="contained"
+            style={
+              !fileData ? styles.TextFieldPropsGray : styles.TextFieldProps
+            }
+            onClick={handleNext}
+            disabled={!fileData}
+          >
+            <FontAwesomeIcon
+              icon={faArrowRight}
+              style={styles.FontAwesomeIconStyleWhite}
+            />
+          </Button>
+        )}
       </div>
     </div>
   );

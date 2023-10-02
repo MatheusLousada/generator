@@ -60,61 +60,83 @@ export default function ListComponents({
     onToggle(component)();
   };
 
+  // aqui na verdade as listas vão ser montadas de alguma maneira diferente
   return (
-    <List dense sx={styles.ListStyle}>
-      {componentsList &&
-        componentsList.map((component) => {
-          const labelId = `checkbox-list-secondary-label-${component}`;
-          const isChecked = checked.indexOf(component) !== -1;
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        flexDirection: "row",
+        alignContent: "center",
+        justifyContent: "space-around",
+        alignItems: "center",
+      }}
+    >
+      <List dense style={styles.ListStyle}>
+        {componentsList &&
+          componentsList.map((component) => {
+            const labelId = `checkbox-list-secondary-label-${component}`;
+            const isChecked = checked.indexOf(component) !== -1;
 
-          return (
-            <ListItem key={component} disablePadding>
-              <ListItemButton sx={styles.ListItemButton}>
-                <ListItemText
-                  id={labelId}
-                  primary={component.toString().toUpperCase()}
-                />
-                {isChecked && (
-                  <>
-                    <IconButton
-                      onClick={() => handleOpenModal(component)}
-                      aria-label="Open Modal"
-                    >
-                      <FontAwesomeIcon
-                        icon={faList}
-                        style={styles.FontAwesomeIcon}
+            return (
+              <ListItem key={component} disablePadding>
+                <ListItemButton sx={styles.ListItemButton}>
+                  <ListItemText
+                    id={labelId}
+                    primary={component.toString().toUpperCase()}
+                  />
+                  {isChecked && (
+                    <>
+                      <IconButton
+                        onClick={() => handleOpenModal(component)}
+                        aria-label="Open Modal"
+                      >
+                        <FontAwesomeIcon
+                          icon={faList}
+                          style={styles.FontAwesomeIcon}
+                        />
+                      </IconButton>
+                      <TextField
+                        type="number"
+                        value={inputValues[component] || 1}
+                        onChange={handleInputChange(component, component)}
+                        InputProps={{
+                          inputProps: { min: 1 },
+                          sx: styles.TextFieldProps,
+                        }}
+                        style={{ margin: "0rem 1rem" }}
                       />
-                    </IconButton>
-                    <TextField
-                      type="number"
-                      value={inputValues[component] || 1}
-                      onChange={handleInputChange(component, component)}
-                      InputProps={{
-                        inputProps: { min: 1 },
-                        sx: styles.TextFieldProps,
-                      }}
-                      style={{ margin: "0rem 1rem" }}
-                    />
-                    {openModal && modalComponent === component && (
-                      <ModalComponentsEndpoints
-                        component={component}
-                        isOpen={openModal}
-                        onClose={handleCloseModal}
-                      />
-                    )}
-                  </>
-                )}
-                <Checkbox
-                  edge="start"
-                  onChange={handleCheckboxChange(component)}
-                  checked={isChecked}
-                  inputProps={{ "aria-labelledby": labelId }}
-                  color="success"
-                />
-              </ListItemButton>
-            </ListItem>
-          );
-        })}
-    </List>
+                      {openModal && modalComponent === component && (
+                        <ModalComponentsEndpoints
+                          component={component}
+                          isOpen={openModal}
+                          onClose={handleCloseModal}
+                        />
+                      )}
+                    </>
+                  )}
+                  <Checkbox
+                    edge="start"
+                    onChange={handleCheckboxChange(component)}
+                    checked={isChecked}
+                    inputProps={{ "aria-labelledby": labelId }}
+                    color="success"
+                  />
+                </ListItemButton>
+              </ListItem>
+            );
+          })}
+      </List>
+
+      {/* --------------------------------------- */}
+
+      <List dense style={styles.ListStyle}>
+      </List>
+
+      {/* -------------------------------------- */}
+
+      <List dense style={styles.ListStyle}>
+      </List>
+    </div>
   );
 }

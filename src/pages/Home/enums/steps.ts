@@ -4,6 +4,7 @@ export enum Steps {
   methodsHttp = "Métodos HTTP",
   components = "Componentes",
   requests = "Requisições",
+  generate = "Gerar",
 }
 
 export const steps: Steps[] = [
@@ -12,4 +13,5 @@ export const steps: Steps[] = [
   Steps.methodsHttp,
   Steps.components,
   Steps.requests,
+  Steps.generate,
 ];

@@ -12,8 +12,8 @@ const ButtonGeneratorContainer = () => {
       return null;
     }
 
-    await GeneratorService.generateAndDownloadFiles();
-    toast.success("Download realizado")
+    await GeneratorService.generateAndDownloadFiles(formData);
+    toast.success("Download realizado");
   };
 
   return (

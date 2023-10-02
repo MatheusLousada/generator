@@ -4,13 +4,15 @@ import FormImportFileContainer from "../../forms/FormImportFile/FormImportFileCo
 import TransferListEndpointsContainer from "../../transferList/TransferListEndpoints/TransferListEndpointsContainer";
 import TransferListMethodsContainer from "../../transferList/TransferListComponents/TransferListComponentsContainer";
 import ListComponentsContainer from "../../list/ListComponents/ListComponentsContainer";
+import FormRequestsContainer from "../../forms/FormRequests/FormImportFileContainer";
 
 const stepContentsMap: StepContentsMap = {
   0: <FormImportFileContainer />,
   1: <TransferListEndpointsContainer />,
   2: <TransferListMethodsContainer />,
   3: <ListComponentsContainer />,
-  4: <div>Conteúdo de Requisições</div>,
+  4: <FormRequestsContainer />,
+  5: <div>gerar</div>,
 };
 
 const StepContents: React.FC<StepContentsProps> = ({ activeStep }) => {

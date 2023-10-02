@@ -1,14 +1,17 @@
 import { Button } from "@mui/material";
-
-interface ButtonGeneratorProps {
-  onClick: () => void;
-}
+import { ButtonGeneratorProps } from "./interfaces/button-generator.interface";
 
 export default function ButtonGenerator({ onClick }: ButtonGeneratorProps) {
+
   return (
     <Button
       variant="contained"
-      style={{ width: "100%", marginTop: "4rem", background: "#00684a" }}
+      style={{
+        background: "#00684a",
+        width: "11rem",
+        height: "2rem",
+        marginLeft: "3rem",
+      }}
       onClick={onClick}
     >
       Gerar

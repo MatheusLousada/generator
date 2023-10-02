@@ -2,9 +2,10 @@ import JSZip from "jszip";
 import { toast } from "react-toastify";
 import FileService from "../File";
 import ListGenerator from "../../generators/List";
+import { FormData } from "../../contexts/interfaces/generator.interface";
 
 const GeneratorService = {
-  generateAndDownloadFiles: async () => {
+  generateAndDownloadFiles: async (formData: FormData) => {
     const zip = new JSZip();
     const folderName = "arquivos";
     const folder = zip.folder(folderName);
@@ -15,30 +16,73 @@ const GeneratorService = {
     }
 
     const componentsFolder = folder.folder("components");
-    if (!componentsFolder) {
-      toast.error("Erro ao criar a pasta 'components' no arquivo zip");
-      return null;
-    }
-
     const requestsFolder = folder.folder("requests");
-    if (!requestsFolder) {
-      toast.error("Erro ao criar a pasta 'requests' no arquivo zip");
+
+    if (!componentsFolder || !requestsFolder) {
+      toast.error("Erro ao criar uma das pastas no arquivo zip");
       return null;
     }
 
-    const listFolder = componentsFolder.folder("List");
-    if (!listFolder) {
-      toast.error("Erro ao criar a pasta 'List' dentro de 'components'");
-      return null;
+    const cleanedComponents = formData.selectedComponents.map((element) => {
+      const type = element && element.type ? element.type : "";
+      return {
+        ...element,
+        type,
+      };
+    });
+
+    for (const element of cleanedComponents) {
+      if (!element) {
+        continue;
+      }
+
+      const elementType = element.type.charAt(0).toUpperCase() + element.type.slice(1);
+      const folder = componentsFolder.folder(element.type);
+
+      if (folder) {
+        let count = 1;
+
+        for (const end of element.endpoints || []) {
+          const endpoint = end.endpoints[0]?.endpoint || "";
+          const cleanedEndpoint = endpoint.replace(/{[^}]+}/g, "");
+          const words = cleanedEndpoint
+            .split("/")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1));
+          const result = words.join("");
+          const idFolder = elementType + result + `_${count}`;
+          const newFolder = folder.folder(idFolder);
+
+          switch (elementType) {
+            case "Table":
+              break;
+            case "List":
+              const id = elementType + result;
+              const containerContent = ListGenerator.generateListContainer(elementType, count, end.endpoints);
+              const fileContent = ListGenerator.generateList(id, count);
+              const requestContent = ListGenerator.generateRequest(
+                end.endpoints,
+                formData.baseURL,
+              );
+
+              newFolder &&
+                newFolder.file(idFolder + "Container.tsx", containerContent);
+              newFolder && newFolder.file(idFolder + ".tsx", fileContent);
+              requestsFolder.file(
+                element.type + `Requests_${count}.tsx`,
+                requestContent
+              );
+              break;
+            case "Button":
+              break;
+
+            default:
+              break;
+          }
+
+          count++;
+        }
+      }
     }
-
-    const listContainerContent = ListGenerator.generateListContainer();
-    const listContent = ListGenerator.generateList();
-    const requestContent = ListGenerator.generateRequest();
-
-    listFolder.file("ListContainer.tsx", listContainerContent);
-    listFolder.file("List.tsx", listContent);
-    requestsFolder.file("ListRequests.tsx", requestContent);
 
     const content = await zip.generateAsync({ type: "blob" });
 
