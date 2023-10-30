@@ -8,7 +8,8 @@ const ListStyle: CSSProperties = {
   justifyContent: "flex-end",
   alignItems: "center",
   background: "#a9a9a94f",
-  padding: 10,
+  padding: '10px 0px',
+  backgroundColor: "#00000014",
 };
 
 const ListItemButton: CSSProperties = {
@@ -62,6 +63,10 @@ const FontAwesomeIconStyleWhite: CSSProperties = {
   border: "none",
 };
 
+const DivRigthButton: CSSProperties = {
+  marginRight: "1rem",
+};
+
 const styles = {
   ListStyle,
   ListItemButton,
@@ -71,6 +76,7 @@ const styles = {
   FontAwesomeIconStyleGreen,
   FontAwesomeIconStyleGray,
   FontAwesomeIconStyleWhite,
+  DivRigthButton,
 };
 
 export default styles;

@@ -47,38 +47,91 @@ const components = {
   }),
 
   Paper: styled(Paper)({
-    width: "90%",
-    minHeight: "55vh",
-    marginTop: '4%'
+    width: "40rem",
+    minHeight: "52vh",
   }),
 };
 
-const DivInputFile: CSSProperties = {
+const DivMasterComponents: CSSProperties = {
   width: "100%",
   display: "flex",
+  flexDirection: "row",
+  placeContent: "center space-around",
+  alignItems: "flex-start",
+  flexWrap: "nowrap",
+  alignContent: "flex-start",
+  justifyContent: "space-around",
+};
+
+const DivFormRequests: CSSProperties = {
+  width: "100%",
+  display: "flex",
+  flexDirection: "row",
+  alignContent: "center",
+  justifyContent: "space-around",
+  alignItems: "center",
+  marginTop: "5rem",
+};
+
+const DivForm: CSSProperties = {
+  display: "flex",
   flexDirection: "column",
+  placeContent: "center",
+  alignItems: "flex-start",
   flexWrap: "nowrap",
   alignContent: "flex-start",
   justifyContent: "center",
-  alignItems: "center",
-  marginTop: "8%",
-  marginBottom: "4rem",
+  width: "100%",
 };
 
-const DivHelperText: CSSProperties = {
-  width: "99%",
+const DivPaper: CSSProperties = {
+  height: "50px",
+  width: "100%",
+  background: "rgb(0, 104, 74)",
+  borderTopLeftRadius: "0.3rem",
+  borderTopRightRadius: "0.3rem",
 };
 
-const FileImportIcon: CSSProperties = {
-  marginTop: "25px",
-  fontSize: "25px",
+const DivBaseUrl: CSSProperties = {
+  marginBottom: "3rem",
+  width: "100%",
+  display: "flex",
+  flexDirection: "row",
+  flexWrap: "nowrap",
+  alignContent: "flex-end",
+  justifyContent: "flex-start",
+  alignItems: "flex-end",
+};
+
+const FormLabelBaseUrl: CSSProperties = {
+  marginRight: "1rem",
+  width: "130px",
+  textAlign: "start",
+  color: "#00684a",
+  fontSize: '0.875rem'
+};
+
+const FormLabelAccessToken: CSSProperties = {
+  marginRight: "1rem",
+  width: "130px",
+  textAlign: "start",
   color: "#00684a",
 };
 
+const Text: CSSProperties = {
+  width: "100%",
+  fontSize: '0.875rem',
+};
+
 const styles = {
-  DivInputFile,
-  DivHelperText,
-  FileImportIcon,
+  DivMasterComponents,
+  DivFormRequests,
+  DivForm,
+  DivPaper,
+  DivBaseUrl,
+  FormLabelBaseUrl,
+  FormLabelAccessToken,
+  Text,
 };
 
 export { components, styles };

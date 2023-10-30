@@ -9,8 +9,6 @@ export enum Steps {
 
 export const steps: Steps[] = [
   Steps.importFile,
-  Steps.endpoints,
-  Steps.methodsHttp,
   Steps.components,
   Steps.requests,
   Steps.generate,

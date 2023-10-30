@@ -2,9 +2,8 @@ import { CSSProperties } from "react";
 
 const StepperStyle: CSSProperties = {
   background: "#00684a",
-  padding: "3rem",
-  borderRadius: "0.4rem",
-  width: "95%",
+  padding: "3rem 0rem",
+  width: "100%",
   marginBottom: "0.3rem",
 };
 

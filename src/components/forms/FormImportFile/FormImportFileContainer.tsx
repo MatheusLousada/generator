@@ -3,14 +3,25 @@ import FormImportFile from "./FormImportFile";
 import SwaggerService from "../../../services/Swagger";
 import { toast } from "react-toastify";
 import { useGeneratorContext } from "../../../contexts/GeneratorContext";
+import { Endpoints, FileData } from "../../../contexts/interfaces/generator.interface";
 
 const FormImportFileContainer: React.FC = () => {
-  const swaggerService = SwaggerService();
-  const { setFormData, setFileData } = useGeneratorContext();
+  const { setFileData, setFormData } = useGeneratorContext();
+  const swaggerService = new SwaggerService({});
 
-  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  const setFormDataComponents = (data: FileData) => {
+    if (data && data.paths) {
+      const paths = data.paths;
+      const endpoints: Endpoints[] = Object.entries(paths).map(([endpoint, methods]) => ({
+        endpoint,
+        methods,
+      }));
+  
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        endpoints,
+      }));
+    }
   };
 
   const handleFile = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,14 +34,15 @@ const FormImportFileContainer: React.FC = () => {
         const data = await swaggerService.readFile(file);
         swaggerService.validate(data);
         setFileData(data);
-        toast.success("Arquivo validado");
+        setFormDataComponents(data);
+        toast.success("Arquivo válido");
       } catch (error) {
         toast.error("Arquivo inválido");
       }
     }
   };
 
-  return <FormImportFile onInputChange={handleInput} onFileChange={handleFile} />;
+  return <FormImportFile onFileChange={handleFile} />;
 };
 
 export default FormImportFileContainer;

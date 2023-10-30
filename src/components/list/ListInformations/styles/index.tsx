@@ -1,6 +1,6 @@
 import { CSSProperties } from "react";
 import { styled } from "@mui/system";
-import { IconButton, ListItem } from "@mui/material";
+import { ListItem } from "@mui/material";
 
 const components = {
   Title: styled("div")({
@@ -15,16 +15,11 @@ const components = {
   }),
   ListItem: styled(ListItem)({
     width: "100%",
-    "&:hover": {
-      background: "#00ed64 !important",
-      border: "none",
-      color: "#00684a",
-    },
-  }),
-  IconButton: styled(IconButton)({
-    "&:hover": {
-      backgroundColor: "#00684a2e",
-    },
+    display: "flex",
+    marginBottom: "1rem",
+    alignContent: "center",
+    alignItems: "flex-start",
+    flexDirection: "row",
   }),
 };
 
@@ -34,6 +29,18 @@ const ListStyle: CSSProperties = {
 
 const ListItemButton: CSSProperties = {
   width: "100%",
+};
+
+const ListItemTextNumber: CSSProperties = {
+  marginRight: "0.5rem",
+  color: "#00684a",
+  fontWeight: 600,
+};
+
+const ListItemText: CSSProperties = {
+  padding: "0rem 0.5rem",
+  textAlign: "justify",
+  borderRadius: '0.2rem'
 };
 
 const TextFieldProps: CSSProperties = {
@@ -57,26 +64,29 @@ const DivListComponents: CSSProperties = {
   alignContent: "center",
   justifyContent: "space-around",
   alignItems: "center",
-  marginTop: '5rem'
-};
-
-const DivMasterComponents: CSSProperties = {
-  width: "100%",
-  display: "flex",
-  flexDirection: "row",
-  placeContent: "center space-around",
-  alignItems: "flex-start",
-  flexWrap: "nowrap",
-  alignContent: "flex-start",
-  justifyContent: "space-around",
+  height: "66vh",
 };
 
 const ListItemTextHeader: CSSProperties = {
-  background: "#00684a",
-  height: "50px",
+  background: "rgb(0, 104, 74)",
+  height: "34px",
   marginTop: "-8px",
   borderTopLeftRadius: "0.3rem",
   borderTopRightRadius: "0.3rem",
+  color: "white",
+  paddingLeft: "1rem",
+  paddingTop: "1rem",
+};
+
+const DivListInformations: CSSProperties = {
+  width: "100%",
+  display: "flex",
+  flexDirection: "column",
+  flexWrap: "nowrap",
+  alignContent: "center",
+  justifyContent: "flex-start",
+  alignItems: "center",
+  marginTop: '5rem'
 };
 
 const styles = {
@@ -87,7 +97,9 @@ const styles = {
   FontAwesomeIcon,
   DivListComponents,
   ListItemTextHeader,
-  DivMasterComponents,
+  DivListInformations,
+  ListItemTextNumber,
+  ListItemText,
 };
 
 export { components, styles };

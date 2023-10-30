@@ -14,8 +14,11 @@ export const GeneratorProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const initialFormData: FormData = {
-    baseURL: '',
-    selectedEndpoints: [],
+    request: {
+      baseURL: "",
+      accessToken: "",
+    },
+    endpoints: [],
     selectedComponents: [],
   };
 

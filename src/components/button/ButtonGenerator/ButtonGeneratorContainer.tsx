@@ -7,20 +7,21 @@ const ButtonGeneratorContainer = () => {
   const { formData } = useGeneratorContext();
 
   const handleClick = async () => {
-    if (!(formData?.selectedComponents.length > 0)) {
-      toast.error("Você deve selecionar pelo menos um componente");
-      return null;
-    }
+    try {
+      const generatorService = new GeneratorService(formData);
+      const filesGenerated = await generatorService.generateAndDownloadFiles();
 
-    await GeneratorService.generateAndDownloadFiles(formData);
-    toast.success("Download realizado");
+      if (filesGenerated) {
+        toast.success("Documentos gerados com sucesso, e download realizado!");
+      } else {
+        toast.error("Erro ao gerar os documentos");
+      }
+    } catch (error) {
+      toast.error("Erro ao gerar os documentos");
+    }
   };
 
-  return (
-    <>
-      <ButtonGenerator onClick={handleClick} />
-    </>
-  );
+  return <ButtonGenerator onClick={handleClick} />;
 };
 
 export default ButtonGeneratorContainer;

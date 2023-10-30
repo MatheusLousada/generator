@@ -14,7 +14,7 @@ const components = {
   }),
   FormHelperText: styled(FormHelperText)({
     color: "gray",
-    marginLeft: '0px'
+    marginLeft: "0px",
   }),
 };
 
@@ -39,8 +39,21 @@ const ButtonStyle: CSSProperties = {
   },
 };
 
+const DivBox: CSSProperties = {
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  alignItems: "center",
+};
+
+const ButtonClose: CSSProperties = {
+  color: "gray",
+};
+
 const styles = {
   ButtonStyle,
+  DivBox,
+  ButtonClose,
 };
 
 export { components, styles };

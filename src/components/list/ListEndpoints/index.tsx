@@ -9,11 +9,14 @@ import {
   ComponentsEndpointsGroup,
   Endpoints,
 } from "../../../contexts/interfaces/generator.interface";
+import styles from "./styles";
 
 function ListEndpoints({ component, index }: ListEndpointsProps) {
   const { formData, setFormData } = useGeneratorContext();
-  const { selectedEndpoints } = formData;
-  const [selectedItems, setSelectedItems] = useState<ComponentsEndpointsGroup[]>([]);
+  const { endpoints } = formData;
+  const [selectedItems, setSelectedItems] = useState<
+    ComponentsEndpointsGroup[]
+  >([]);
 
   const handleToggle = (endpoint: Endpoints, selectedMethod: string) => () => {
     setSelectedItems((prevSelectedItems) => {
@@ -82,67 +85,46 @@ function ListEndpoints({ component, index }: ListEndpointsProps) {
     setFormData(updatedFormData);
   }, [selectedItems]);
 
-  useEffect(() => {
-    console.log('formData: ')
-    console.log(formData)
-    console.log('---------------')
-  }, [formData]);
-
   return (
-    <List style={{ background: "white", color: "rgb(0, 104, 74)" }}>
-      {selectedEndpoints.map((endpoint, endpointIndex) => (
-        <ListItem
-          key={endpointIndex}
-          style={{ padding: 0, marginBottom: "-15px", marginTop: "-20px" }}
-        >
+    <List style={styles.ListExternal}>
+      {endpoints.map((endpoint, endpointIndex) => (
+        <ListItem key={endpointIndex}>
           <div
-            style={{
-              display: "flex",
-              width: "100%",
-              flexDirection: "column",
-            }}
+            style={styles.ListItemDiv}
           >
-            <List>
-              {endpoint.selectedMethods?.map((selectedMethod, methodIndex) => (
-                <ListItem
-                  key={methodIndex}
-                  button
-                  onClick={handleToggle(endpoint, selectedMethod)}
-                >
-                  <Checkbox
-                    edge="start"
-                    checked={selectedItems.some((item) =>
-                      item.endpoints.some(
-                        (e) =>
-                          e.endpoint === endpoint.endpoint &&
-                          e.method === selectedMethod
-                      )
-                    )}
-                    tabIndex={-1}
-                    disableRipple
-                    color="success"
-                  />
-                  <ListItemText
-                    primary={
-                      <>
-                        {endpoint.endpoint}{" "}
-                        <span
-                          style={{
-                            background: "#00684a",
-                            color: "white",
-                            padding: "3px 8px",
-                            borderRadius: "1rem",
-                            marginLeft: "1rem",
-                            fontSize: "12px",
-                          }}
-                        >
-                          {selectedMethod.toUpperCase()}
-                        </span>
-                      </>
-                    }
-                  />
-                </ListItem>
-              ))}
+            <List style={styles.ListInternal}>
+              {endpoint.methods && Object.keys(endpoint.methods).map((method) => (
+                  <ListItem
+                    button
+                    onClick={handleToggle(endpoint, method)}
+                  >
+                    <Checkbox
+                      edge="start"
+                      checked={selectedItems.some((item) =>
+                        item.endpoints.some(
+                          (e) =>
+                            e.endpoint === endpoint.endpoint &&
+                            e.method === method
+                        )
+                      )}
+                      tabIndex={-1}
+                      disableRipple
+                      color="success"
+                    />
+                    <ListItemText
+                      primary={
+                        <>
+                          {`${endpoint.endpoint}`}
+                          <span
+                            style={styles.Span}
+                          >
+                            {method.toUpperCase()}
+                          </span>
+                        </>
+                      }
+                    />
+                  </ListItem>
+                ))}
             </List>
           </div>
         </ListItem>

@@ -1,43 +1,37 @@
 import { ComponentsEndpoints } from "../../contexts/interfaces/generator.interface";
 
-const ListGenerator = {
-  generateListContainer: (
-    type: string,
-    counter: number,
-    endpoints: ComponentsEndpoints[]
-  ) => {
-    let id, idContainer;
-    let response: string = "";
+class ListGenerator {
+  type: string;
+  endpoints: ComponentsEndpoints[];
+  baseURL: string;
+  count: number;
 
-    response = `
-import React, { useEffect, useState } from "react";`;
+  constructor(type: string, endpoints: ComponentsEndpoints[], baseURL: string, count: number) {
+    this.type = type;
+    this.endpoints = endpoints;
+    this.baseURL = baseURL;
+    this.count = count;
+  }
 
-    endpoints.forEach((e) => {
-      const cleanedEndpoint =
-        e && e.endpoint ? e.endpoint.replace(/{[^}]+}/g, "") : "";
-      const words = cleanedEndpoint
-        .split("/")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1));
-      const result = words.join("");
-      id = type + result + `_${counter}`;
-      idContainer = type + result + `Container_${counter}`;
-    });
-
-    response += `
+  generateContainer(): string {
+    const view = `${this.type}_${this.count}`;
+    const idContainer = this.type + `Container_${this.count}`;
+    const response: string = `
+import React, { useEffect, useState } from "react";
+import ${view} from "./${view}";
 
 export default function ${idContainer}() {
-  return <${id} />;
+  return <${view} />;
 }`;
-
     return response;
-  },
+  }
 
-  generateList: (id: string, counter: number,) => {
+  generateView(): string {
     return `
 import React from "react";
 import { List, ListItem, ListItemText } from "@mui/material";
 
-export default function ${id}_${counter}({ items }) {
+export default function ${this.type}_${this.count}({ items }) {
   return (
     <div>
       <h2>Lista de Itens</h2>
@@ -50,19 +44,15 @@ export default function ${id}_${counter}({ items }) {
       </List>
     </div>
   );
-}
-      `;
-  },
+}`;
+  }
 
-  generateRequest: (endpoints: ComponentsEndpoints[], baseURL: string) => {
+  generateRequest(): string {
     let response = `
 import axios from "axios";
+import { axiosInstance, authToken } from "./AxiosConsts";`;
 
-const axiosInstance = axios.create({
-  baseURL: '${baseURL}',
-});`;
-
-    endpoints.forEach((e) => {
+    this.endpoints.forEach((e) => {
       const cleanedEndpoint =
         e && e.endpoint ? e.endpoint.replace(/{[^}]+}/g, "") : "";
       const words = cleanedEndpoint
@@ -76,12 +66,17 @@ const axiosInstance = axios.create({
       response =
         response +
         `
-
 export const fetch${result} = async () => {
   try {
+    const payload = {};
+    const response = await axiosInstance.${e.method}("${e.endpoint}", payload ?? null, {
+      headers: {
+        Authorization: \`Bearer \${authToken}\`,
+      },
+    });
+
     const response = await axiosInstance.${e.method}("${e.endpoint}");
-    const data = response.data;
-    return data;
+    return response.data;
   } catch (error) {
     console.error("Erro na requisição fetch${result}:", error);
   }
@@ -89,7 +84,7 @@ export const fetch${result} = async () => {
     });
 
     return response;
-  },
-};
+  }
+}
 
 export default ListGenerator;

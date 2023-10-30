@@ -5,19 +5,15 @@ import styles from "./styles";
 
 const StepHeader: React.FC<StepHeaderProps> = ({ steps, activeStep }) => {
   const getStepIconStyle = (stepIndex: number) => {
-    if (stepIndex === activeStep) {
+    if (stepIndex === activeStep || stepIndex < activeStep) {
       return {
         color: "#00ed64",
       };
-    } else if (stepIndex < activeStep) {
-      return {
-        color: "#00ed64",
-      };
-    } else {
-      return {
-        color: "gray",
-      };
-    }
+    } 
+    
+    return {
+      color: "gray",
+    };
   };
 
   return (

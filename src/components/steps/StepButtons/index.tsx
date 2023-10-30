@@ -16,25 +16,25 @@ const StepButtons: React.FC<StepButtonsProps> = ({
   const { fileData } = useGeneratorContext();
   return (
     <div style={styles.ListStyle}>
-      <div>
-        <Button
-          disabled={activeStep === 0}
-          onClick={handleBack}
-          variant="outlined"
+      <Button
+        disabled={activeStep === 0}
+        onClick={handleBack}
+        variant="outlined"
+        style={
+          activeStep === 0 ? styles.ListItemButtonGray : styles.ListItemButton
+        }
+      >
+        <FontAwesomeIcon
+          icon={faArrowLeft}
           style={
-            activeStep === 0 ? styles.ListItemButtonGray : styles.ListItemButton
+            activeStep === 0
+              ? styles.FontAwesomeIconStyleGray
+              : styles.FontAwesomeIconStyleGreen
           }
-        >
-          <FontAwesomeIcon
-            icon={faArrowLeft}
-            style={
-              activeStep === 0
-                ? styles.FontAwesomeIconStyleGray
-                : styles.FontAwesomeIconStyleGreen
-            }
-          />
-        </Button>
+        />
+      </Button>
 
+      <div style={styles.DivRigthButton}>
         {activeStep === steps.length - 1 ? (
           <ButtonGeneratorContainer />
         ) : (

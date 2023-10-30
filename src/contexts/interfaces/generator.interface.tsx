@@ -69,9 +69,14 @@ interface Components {
   endpoints?: ComponentsEndpointsGroup[];
 }
 
-interface FormData {
+interface RequestData {
   baseURL: string;
-  selectedEndpoints: Endpoints[];
+  accessToken: string;
+}
+
+interface FormData {
+  request: RequestData;
+  endpoints: Endpoints[];
   selectedComponents: Components[];
 }
 

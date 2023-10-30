@@ -6,7 +6,6 @@ const StyledDiv = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 75vh;
-  padding: 1rem;
 `;
 
 export { StyledDiv };

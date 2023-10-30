@@ -12,12 +12,8 @@ function ModalComponentsEndpoints({
   onClose,
 }: ModalComponentsEndpointsProps) {
   const { Title, FormHelperText } = components;
-  const { formData } = useGeneratorContext();
+  const { formData} = useGeneratorContext();
   const componentToUpper = component.toUpperCase();
-  
-  console.log('formData: ')
-  console.log(formData)
-  console.log('-------------')
 
   return (
     <Modal
@@ -26,30 +22,20 @@ function ModalComponentsEndpoints({
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
     >
-      <Box
-        sx={styles.ButtonStyle}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
+      <Box sx={styles.ButtonStyle}>
+        <div style={styles.DivBox}>
           <Title>
             <strong>{componentToUpper}</strong>
           </Title>
           <div>
-            <Button onClick={onClose} style={{ color: "gray" }}>
+            <Button onClick={onClose} style={styles.ButtonClose}>
               X
             </Button>
           </div>
         </div>
 
         <FormHelperText>
-          Escolha os endpoints e os métodos que cada componente{" "}
-          {componentToUpper} usará para realizar requisições
+          {`Escolha os endpoints e os métodos que cada componente ${componentToUpper} usará para realizar requisições`}
         </FormHelperText>
 
         <ListComponentsEndpoints
