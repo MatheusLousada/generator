@@ -2,8 +2,7 @@ export const componentsList = [
   "table",
   "list",
   "button",
-  "autocomplete",
   "radioGroup",
-  "input",
+  "textField",
   "select",
 ];

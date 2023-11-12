@@ -17,6 +17,9 @@ const ButtonGeneratorContainer = () => {
         toast.error("Erro ao gerar os documentos");
       }
     } catch (error) {
+      console.log('erro: ')
+      console.log(error)
+      console.log('-----------------')
       toast.error("Erro ao gerar os documentos");
     }
   };

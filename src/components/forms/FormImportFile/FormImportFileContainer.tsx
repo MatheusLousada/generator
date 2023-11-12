@@ -33,8 +33,10 @@ const FormImportFileContainer: React.FC = () => {
       try {
         const data = await swaggerService.readFile(file);
         swaggerService.validate(data);
+
         setFileData(data);
         setFormDataComponents(data);
+
         toast.success("Arquivo válido");
       } catch (error) {
         toast.error("Arquivo inválido");
@@ -46,3 +48,4 @@ const FormImportFileContainer: React.FC = () => {
 };
 
 export default FormImportFileContainer;
+

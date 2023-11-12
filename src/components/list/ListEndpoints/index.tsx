@@ -86,17 +86,19 @@ function ListEndpoints({ component, index }: ListEndpointsProps) {
   }, [selectedItems]);
 
   return (
-    <List style={styles.ListExternal}>
+    <List style={styles.ListExternal}  key={'externalList'}>
       {endpoints.map((endpoint, endpointIndex) => (
-        <ListItem key={endpointIndex}>
+        <ListItem key={`externalItem_${endpointIndex}`}>
           <div
             style={styles.ListItemDiv}
+            key={`div_${endpointIndex}`}
           >
-            <List style={styles.ListInternal}>
+            <List style={styles.ListInternal} key={`internalList_${endpointIndex}`}>
               {endpoint.methods && Object.keys(endpoint.methods).map((method) => (
                   <ListItem
                     button
                     onClick={handleToggle(endpoint, method)}
+                    key={`internalItem_${endpointIndex}`}
                   >
                     <Checkbox
                       edge="start"
@@ -110,6 +112,7 @@ function ListEndpoints({ component, index }: ListEndpointsProps) {
                       tabIndex={-1}
                       disableRipple
                       color="success"
+                      key={`checkbox_${endpointIndex}`}
                     />
                     <ListItemText
                       primary={
@@ -122,6 +125,7 @@ function ListEndpoints({ component, index }: ListEndpointsProps) {
                           </span>
                         </>
                       }
+                      key={`internalItemText_${endpointIndex}`}
                     />
                   </ListItem>
                 ))}

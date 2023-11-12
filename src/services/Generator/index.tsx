@@ -8,6 +8,11 @@ import { toast } from "react-toastify";
 import ListGenerator from "../../generators/List";
 import { ComponentData } from "./interfaces/generator.interface";
 import AxiosGenerator from "../../generators/Axios";
+import ButtonGenerator from "../../components/button/ButtonGenerator/ButtonGenerator";
+import RadioGroupGenerator from "../../generators/RadioGroup";
+import SelectGenerator from "../../generators/Select";
+import TableGenerator from "../../generators/Table";
+import TextFieldGenerator from "../../generators/TextField";
 
 class GeneratorService {
   formData: FormData;
@@ -35,6 +40,11 @@ class GeneratorService {
   ): ComponentData | null {
     const generatorClasses: Record<string, any> = {
       List: ListGenerator,
+      Button: ButtonGenerator,
+      RadioGroup: RadioGroupGenerator,
+      Select: SelectGenerator,
+      Table: TableGenerator,
+      TextField: TextFieldGenerator,
     };
 
     const GeneratorClass = generatorClasses[elementType];
@@ -42,13 +52,15 @@ class GeneratorService {
     if (GeneratorClass) {
       const generator = new GeneratorClass(
         elementType,
-        endpoint.endpoints,
+        endpoint && endpoint?.endpoints ? endpoint?.endpoints : null,
         this.formData.request.baseURL,
         count
       );
       const containerContent = generator.generateContainer();
       const fileContent = generator.generateView();
-      const requestContent = generator.generateRequest();
+      const requestContent =
+        endpoint && endpoint?.endpoints ? generator.generateRequest() : null;
+
       return {
         containerContent,
         fileContent,
@@ -76,10 +88,12 @@ class GeneratorService {
       newFolder.file(idFolder + ".tsx", componentData.fileContent);
     }
 
-    this.requestsFolder?.file(
-      elementType + `Requests_${count}.tsx`,
-      componentData.requestContent
-    );
+    if (componentData.requestContent) {
+      this.requestsFolder?.file(
+        elementType + `Requests_${count}.tsx`,
+        componentData.requestContent
+      );
+    }
   }
 
   private getComponents(): Components[] {
@@ -101,7 +115,10 @@ class GeneratorService {
   }
 
   private getAxiosContsContent() {
-    const axios = new AxiosGenerator(this.formData.request.baseURL, this.formData.request.accessToken); 
+    const axios = new AxiosGenerator(
+      this.formData.request.baseURL,
+      this.formData.request.accessToken
+    );
     return axios.generateContent();
   }
 
@@ -110,17 +127,14 @@ class GeneratorService {
   }
 
   public async generateAndDownloadFiles() {
-    if (!this.folder) {
+    if (!this.folder || !this.componentsFolder || !this.requestsFolder) {
       toast.error("Erro ao criar a pasta no arquivo zip");
-      return;
-    }
-
-    if (!this.componentsFolder || !this.requestsFolder) {
       toast.error("Erro ao criar uma das pastas no arquivo zip");
       return;
     }
 
     const components: Components[] = this.getComponents();
+
     for (const component of components) {
       if (!component) {
         continue;
@@ -129,30 +143,34 @@ class GeneratorService {
       let count = 1;
       const componentType = this.getComponentType(component);
 
-      for (const endpoint of component.endpoints || []) {
+      const endpoints = component.endpoints || [];
+
+      const generateAndDownload = (endpoint: any) => {
         const componentData = this.generateComponentData(
           componentType,
           endpoint,
           count
         );
-
         if (componentData) {
           this.generateComponentFiles(componentData, componentType, count);
         }
         count++;
-      }
+      };
+
+      endpoints.length > 0
+        ? endpoints.forEach(generateAndDownload)
+        : generateAndDownload(null);
     }
 
     this.generateAxiosConstsFile();
-    const content = await this.zip.generateAsync({ type: "blob" });
 
     try {
+      const content = await this.zip.generateAsync({ type: "blob" });
       await FileService.createAndDownloadZip("arquivos_zipados.zip", content);
+      return content;
     } catch (error) {
       toast.error("Erro ao criar e fazer o download do arquivo zip");
     }
-
-    return content;
   }
 }
 
