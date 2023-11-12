@@ -9,7 +9,7 @@ const FormImportFileContainer: React.FC = () => {
   const { setFileData, setFormData } = useGeneratorContext();
   const swaggerService = new SwaggerService({});
 
-  const setFormDataComponents = (data: FileData) => {
+  const setFormDataEndpoints = (data: FileData) => {
     if (data && data.paths) {
       const paths = data.paths;
       const endpoints: Endpoints[] = Object.entries(paths).map(([endpoint, methods]) => ({
@@ -35,7 +35,7 @@ const FormImportFileContainer: React.FC = () => {
         swaggerService.validate(data);
 
         setFileData(data);
-        setFormDataComponents(data);
+        setFormDataEndpoints(data);
 
         toast.success("Arquivo válido");
       } catch (error) {
