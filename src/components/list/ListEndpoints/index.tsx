@@ -6,6 +6,7 @@ import Checkbox from "@mui/material/Checkbox";
 import { ListEndpointsProps } from "./interfaces/listEndpoints.interface";
 import { useGeneratorContext } from "../../../contexts/GeneratorContext";
 import {
+  Components,
   ComponentsEndpointsGroup,
   Endpoints,
 } from "../../../contexts/interfaces/generator.interface";
@@ -13,7 +14,7 @@ import styles from "./styles";
 
 function ListEndpoints({ component, index }: ListEndpointsProps) {
   const { formData, setFormData } = useGeneratorContext();
-  const { endpoints } = formData;
+  const { endpoints, selectedComponents } = formData;
   const [selectedItems, setSelectedItems] = useState<
     ComponentsEndpointsGroup[]
   >([]);
@@ -57,6 +58,20 @@ function ListEndpoints({ component, index }: ListEndpointsProps) {
   };
 
   useEffect(() => {
+    const selectedItems: ComponentsEndpointsGroup[] = [];
+    const selectedComponentsExpecificType: Components[] = selectedComponents.filter((c) => c.type === component);
+    
+    selectedComponentsExpecificType.forEach((selectedComponent) => {
+      selectedComponent.endpoints &&
+        selectedComponent.endpoints.forEach((endpoint) => {
+          if(endpoint.id === index) selectedItems.push(endpoint);
+        });
+    });
+
+    setSelectedItems(selectedItems);
+  }, []);
+
+  useEffect(() => {
     const updatedFormData = { ...formData };
     const componentToUpdate = updatedFormData.selectedComponents.find(
       (comp) => comp.type === component
@@ -86,19 +101,20 @@ function ListEndpoints({ component, index }: ListEndpointsProps) {
   }, [selectedItems]);
 
   return (
-    <List style={styles.ListExternal}  key={'externalList'}>
+    <List style={styles.ListExternal} key={"externalList"}>
       {endpoints.map((endpoint, endpointIndex) => (
         <ListItem key={`externalItem_${endpointIndex}`}>
-          <div
-            style={styles.ListItemDiv}
-            key={`div_${endpointIndex}`}
-          >
-            <List style={styles.ListInternal} key={`internalList_${endpointIndex}`}>
-              {endpoint.methods && Object.keys(endpoint.methods).map((method) => (
+          <div style={styles.ListItemDiv} key={`div_${endpointIndex}`}>
+            <List
+              style={styles.ListInternal}
+              key={`internalList_${endpointIndex}`}
+            >
+              {endpoint.methods &&
+                Object.keys(endpoint.methods).map((method) => (
                   <ListItem
                     button
                     onClick={handleToggle(endpoint, method)}
-                    key={`internalItem_${endpointIndex}`}
+                    key={`internalItem_${endpointIndex}_${method}`}
                   >
                     <Checkbox
                       edge="start"
@@ -112,20 +128,18 @@ function ListEndpoints({ component, index }: ListEndpointsProps) {
                       tabIndex={-1}
                       disableRipple
                       color="success"
-                      key={`checkbox_${endpointIndex}`}
+                      key={`checkbox_${endpointIndex}_${method}`}
                     />
                     <ListItemText
                       primary={
                         <>
                           {`${endpoint.endpoint}`}
-                          <span
-                            style={styles.Span}
-                          >
+                          <span style={styles.Span}>
                             {method.toUpperCase()}
                           </span>
                         </>
                       }
-                      key={`internalItemText_${endpointIndex}`}
+                      key={`internalItemText_${endpointIndex}_${method}`}
                     />
                   </ListItem>
                 ))}

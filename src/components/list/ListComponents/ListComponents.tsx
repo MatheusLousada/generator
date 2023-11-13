@@ -31,8 +31,8 @@ export default function ListComponents({
   const handleInputChange = (component: string, newValue: number) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      selectedComponents: prevFormData.selectedComponents.map((c) =>
-        c.type === component ? { ...c, amount: newValue } : c
+      selectedComponents: prevFormData.selectedComponents.map((selectedComponent) =>
+        selectedComponent.type === component ? { ...selectedComponent, amount: newValue } : selectedComponent
       ),
     }));
   };

@@ -6,7 +6,6 @@ class SwaggerService extends Component {
   validate(data: any) {
     const validator = new OpenAPISchemaValidator({
       version: data.openapi,
-      extensions: data.openapi,
     });
 
     const validationResult = validator.validate(data);
@@ -21,3 +20,4 @@ class SwaggerService extends Component {
 }
 
 export default SwaggerService;
+
