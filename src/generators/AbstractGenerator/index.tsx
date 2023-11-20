@@ -3,23 +3,21 @@ import { ComponentsEndpoints } from "../../contexts/interfaces/generator.interfa
 abstract class AbstractGenerator {
   type: string;
   endpoints: ComponentsEndpoints[];
-  baseURL: string;
   count: number;
   parameters: string[] = [];
 
   constructor(
     type: string,
     endpoints: ComponentsEndpoints[],
-    baseURL: string,
     count: number
   ) {
     this.type = type;
     this.endpoints = endpoints;
-    this.baseURL = baseURL;
     this.count = count;
   }
 
   abstract generateView(): string;
+  abstract getParameters(): string[];
 
   protected setParameters(parameters: string[]): void {
     this.parameters = parameters;
@@ -48,8 +46,14 @@ export default function ${idContainer}() {
 
   public generateRequest(): string {
     let response = `
-import axios from "axios";
-import { axiosInstance, authToken } from "./AxiosConsts";`;
+import { AxiosInstance } from "axios";
+
+interface FetchParams {
+  axios: AxiosInstance;
+  authToken: string;
+  payload?: any;
+}
+`;
 
     this.endpoints.forEach((e) => {
       const cleanedEndpoint =
@@ -65,10 +69,9 @@ import { axiosInstance, authToken } from "./AxiosConsts";`;
       response =
         response +
         `
-export const fetch${result} = async () => {
+export const fetch${result} = async ({ axios, authToken, payload }: FetchParams) => {
   try {
-    const payload = {};
-    const response = await axiosInstance.${e.method}("${e.endpoint}", payload ?? null, {
+    const response = await axios.${e.method}("${e.endpoint}", payload ?? null, {
       headers: {
         Authorization: \`Bearer \${authToken}\`,
       },

@@ -5,10 +5,9 @@ class RadioGroupGenerator extends AbstractGenerator {
   constructor(
     type: string,
     endpoints: ComponentsEndpoints[],
-    baseURL: string,
     count: number
   ) {
-    super(type, endpoints, baseURL, count);
+    super(type, endpoints, count);
     super.setParameters(this.getParameters());
   }
 
@@ -28,11 +27,11 @@ import FormLabel from '@mui/material/FormLabel';
 export default function ${this.type}_${this.count}({ selectedValue, handleChange, options, label }) {
   return (
     <FormControl>
-      <FormLabel id="${this.type}_${this.count}-label">{label}</FormLabel>
+      <FormLabel id="${this.type}-${this.count}-label">{label}</FormLabel>
       <RadioGroup
-        aria-labelledby="${this.type}_${this.count}-label"
+        aria-labelledby="${this.type}-${this.count}-label"
         value={selectedValue}
-        name="${this.type}_${this.count}-group"
+        name="${this.type}-${this.count}-group"
         onChange={handleChange}
       >
         {options.map((option) => {

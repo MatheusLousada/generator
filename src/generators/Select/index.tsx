@@ -5,10 +5,9 @@ class SelectGenerator extends AbstractGenerator {
   constructor(
     type: string,
     endpoints: ComponentsEndpoints[],
-    baseURL: string,
     count: number
   ) {
-    super(type, endpoints, baseURL, count);
+    super(type, endpoints, count);
     super.setParameters(this.getParameters());
   }
 
@@ -29,10 +28,10 @@ export default function ${this.type}_${this.count}({ selectedValue, handleChange
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
-        <InputLabel id="${this.type}_${this.count}-label">{label}</InputLabel>
+        <InputLabel id="${this.type}-${this.count}-label">{label}</InputLabel>
         <Select
-          labelId="${this.type}_${this.count}-label"
-          id="${this.type}_${this.count}"
+          labelId="${this.type}-${this.count}-label"
+          id="${this.type}-${this.count}"
           value={selectedValue}
           label="{label}"
           onChange={handleChange}

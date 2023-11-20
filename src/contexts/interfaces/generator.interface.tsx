@@ -54,11 +54,6 @@ interface Endpoints {
   selectedMethods?: string[];
 }
 
-interface RequestData {
-  baseURL: string;
-  accessToken: string;
-}
-
 interface ComponentsEndpoints {
   endpoint?: string;
   method?: string;
@@ -76,7 +71,6 @@ interface Components {
 }
 
 interface FormData {
-  request: RequestData;
   endpoints: Endpoints[];
   selectedComponents: Components[];
 }

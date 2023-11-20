@@ -5,10 +5,9 @@ class ButtonGenerator extends AbstractGenerator {
   constructor(
     type: string,
     endpoints: ComponentsEndpoints[],
-    baseURL: string,
     count: number
   ) {
-    super(type, endpoints, baseURL, count);
+    super(type, endpoints, count);
     super.setParameters(this.getParameters());
   }
 

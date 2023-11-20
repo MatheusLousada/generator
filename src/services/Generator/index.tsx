@@ -7,12 +7,11 @@ import FileService from "../File";
 import { toast } from "react-toastify";
 import ListGenerator from "../../generators/List";
 import { ComponentData } from "./interfaces/generator.interface";
-import AxiosGenerator from "../../generators/Axios";
-import ButtonGenerator from "../../components/button/ButtonGenerator/ButtonGenerator";
 import RadioGroupGenerator from "../../generators/RadioGroup";
 import SelectGenerator from "../../generators/Select";
 import TableGenerator from "../../generators/Table";
 import TextFieldGenerator from "../../generators/TextField";
+import ButtonGenerator from "../../generators/Button";
 
 class GeneratorService {
   formData: FormData;
@@ -53,13 +52,13 @@ class GeneratorService {
       const generator = new GeneratorClass(
         elementType,
         endpoint && endpoint?.endpoints ? endpoint?.endpoints : null,
-        this.formData.request.baseURL,
         count
       );
       const containerContent = generator.generateContainer();
       const fileContent = generator.generateView();
-      const requestContent =
-        endpoint && endpoint?.endpoints ? generator.generateRequest() : null;
+      const requestContent = endpoint && endpoint?.endpoints 
+        ? generator.generateRequest() 
+        : null;
 
       return {
         containerContent,
@@ -87,7 +86,13 @@ class GeneratorService {
       );
       newFolder.file(idFolder + ".tsx", componentData.fileContent);
     }
+  }
 
+  private generateComponentRequestsFiles(
+    componentData: ComponentData,
+    elementType: string,
+    count: number
+  ) {
     if (componentData.requestContent) {
       this.requestsFolder?.file(
         elementType + `Requests_${count}.tsx`,
@@ -114,18 +119,6 @@ class GeneratorService {
     return "";
   }
 
-  private getAxiosContsContent() {
-    const axios = new AxiosGenerator(
-      this.formData.request.baseURL,
-      this.formData.request.accessToken
-    );
-    return axios.generateContent();
-  }
-
-  private generateAxiosConstsFile() {
-    this.requestsFolder?.file(`AxiosConsts.tsx`, this.getAxiosContsContent());
-  }
-
   public async generateAndDownloadFiles() {
     if (!this.folder || !this.componentsFolder || !this.requestsFolder) {
       toast.error("Erro ao criar a pasta no arquivo zip");
@@ -134,7 +127,6 @@ class GeneratorService {
     }
 
     const components: Components[] = this.getComponents();
-
     for (const component of components) {
       if (!component) {
         continue;
@@ -142,7 +134,6 @@ class GeneratorService {
 
       let count = 1;
       const componentType = this.getComponentType(component);
-
       const endpoints = component.endpoints || [];
 
       const generateAndDownload = (endpoint: any) => {
@@ -151,9 +142,16 @@ class GeneratorService {
           endpoint,
           count
         );
+
         if (componentData) {
           this.generateComponentFiles(componentData, componentType, count);
+          this.generateComponentRequestsFiles(
+            componentData,
+            componentType,
+            count
+          );
         }
+
         count++;
       };
 
@@ -161,8 +159,6 @@ class GeneratorService {
         ? endpoints.forEach(generateAndDownload)
         : generateAndDownload(null);
     }
-
-    this.generateAxiosConstsFile();
 
     try {
       const content = await this.zip.generateAsync({ type: "blob" });

@@ -17,11 +17,6 @@ const Home: React.FC = () => {
       return false;
     }
 
-    if (activeStep === 2 && !formData.request.baseURL) {
-      toast.error("O campo BaseURL é obrigatório");
-      return false;
-    }
-
     return true;
   };
 
