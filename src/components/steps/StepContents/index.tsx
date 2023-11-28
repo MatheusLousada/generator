@@ -9,10 +9,8 @@ const stepContentsMap: StepContentsMap = {
   1: <ListComponentsContainer />,
   2: <div></div>,
 };
-
 const StepContents: React.FC<StepContentsProps> = ({ activeStep }) => {
   const activeStepContent = stepContentsMap[activeStep];
-
   return (
     <div
       style={styles.ActiveStepContentStyle}
