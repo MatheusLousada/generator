@@ -2,17 +2,13 @@ import { ComponentsEndpoints } from "../../contexts/interfaces/generator.interfa
 import AbstractGenerator from "../AbstractGenerator";
 
 class TableGenerator extends AbstractGenerator {
-  constructor(
-    type: string,
-    endpoints: ComponentsEndpoints[],
-    count: number
-  ) {
+  constructor(type: string, endpoints: ComponentsEndpoints[], count: number) {
     super(type, endpoints, count);
     super.setParameters(this.getParameters());
   }
 
   getParameters(): string[] {
-    return ['items'];
+    return ["items"];
   }
 
   generateView(): string {
@@ -26,7 +22,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-export default function ${this.type}_${this.count}({ columns, rows }) {
+export default function ${this.type}${this.count}({ columns, rows }) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -34,7 +30,7 @@ export default function ${this.type}_${this.count}({ columns, rows }) {
           <TableRow>
             {columns.map((column) => (
               <TableCell key={column}>{column}</TableCell>
-            )}
+            ))}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -47,9 +43,9 @@ export default function ${this.type}_${this.count}({ columns, rows }) {
                 <TableCell key={column} component="th" scope="row">
                   {row[column]}
                 </TableCell>
-              )}
+              ))}
             </TableRow>
-          )}
+          ))}
         </TableBody>
       </Table>
     </TableContainer>

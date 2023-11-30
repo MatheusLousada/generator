@@ -24,7 +24,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
 
-export default function ${this.type}_${this.count}({ selectedValue, handleChange, options, label }) {
+export default function ${this.type}${this.count}({ selectedValue, handleChange, options, label }) {
   return (
     <FormControl>
       <FormLabel id="${this.type}-${this.count}-label">{label}</FormLabel>
@@ -35,7 +35,7 @@ export default function ${this.type}_${this.count}({ selectedValue, handleChange
         onChange={handleChange}
       >
         {options.map((option) => {
-            <FormControlLabel value="{option.value}" control={<Radio />} label="{option.label}" />
+            <FormControlLabel value="" control={<Radio />} label="" />
         })}
       </RadioGroup>
     </FormControl>

@@ -12,7 +12,7 @@ class ButtonGenerator extends AbstractGenerator {
   }
 
   getParameters(): string[] {
-    return ['buttonText', 'buttonVariants'];
+    return ['buttonText'];
   }
 
   generateView(): string {
@@ -21,16 +21,8 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-export default function ${this.type}_${this.count}({ buttonText, buttonVariants }) {
-  return (
-    <Stack spacing={2} direction="row">
-      {buttonText.map((text, index) => (
-        <Button key={index} variant={buttonVariants[index]}>
-          {text}
-        </Button>
-      )}
-    </Stack>
-  );
+export default function ${this.type}${this.count}({ buttonText }) {
+  return ( <Button variant="contained">{ buttonText }</Button> );
 }`;
   }
 }

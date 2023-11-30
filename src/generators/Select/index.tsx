@@ -24,7 +24,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-export default function ${this.type}_${this.count}({ selectedValue, handleChange, label, options }) {
+export default function ${this.type}${this.count}({ selectedValue, handleChange, label, options }) {
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
@@ -37,8 +37,8 @@ export default function ${this.type}_${this.count}({ selectedValue, handleChange
           onChange={handleChange}
         >
           {options.map((option) => (
-            <MenuItem value={{option.value}}>{option.label}</MenuItem>
-          )}
+            <MenuItem value={option.value}>{option.label}</MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Box>

@@ -32,8 +32,8 @@ abstract class AbstractGenerator {
   }
 
   public generateContainer(): string {
-    const view = `${this.type}_${this.count}`;
-    const idContainer = this.type + `Container_${this.count}`;
+    const view = `${this.type}${this.count}`;
+    const idContainer = this.type + `Container${this.count}`;
     const response: string = `
 import React, { useEffect, useState } from "react";
 import ${view} from "./${view}";

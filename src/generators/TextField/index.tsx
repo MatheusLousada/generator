@@ -21,7 +21,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-export default function ${this.type}_${this.count}({textFields}) {
+export default function ${this.type}${this.count}({textFields}) {
   return (
     <Box
       component="form"
@@ -32,7 +32,7 @@ export default function ${this.type}_${this.count}({textFields}) {
       autoComplete="off"
     >
       {textFields.map((textField) => {
-        <TextField id="{textField.id}" label="{textField.label}" variant="{textField.variant}" />
+        <TextField id="" label="" variant="" />
       })}
     </Box>
   );

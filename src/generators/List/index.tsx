@@ -20,13 +20,13 @@ class ListGenerator extends AbstractGenerator {
 import React from "react";
 import { List, ListItem, ListItemText } from "@mui/material";
 
-export default function ${this.type}_${this.count}({ items }) {
+export default function ${this.type}${this.count}({ items }) {
   return (
     <div>
       <List>
         {items.map((item) => (
-          <ListItem key={item.id}>
-            <ListItemText primary={item.text} />
+          <ListItem key={}>
+            <ListItemText primary={} />
           </ListItem>
         ))}
       </List>
