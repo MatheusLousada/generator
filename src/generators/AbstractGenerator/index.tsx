@@ -70,13 +70,14 @@ interface FetchParams {
         `
 export const fetch${result} = async ({ axios, payload, authToken }: FetchParams) => {
   try {
-    const response = await axios.${e.method}("${e.endpoint}", 
-      params: payload ?? null, {
+    const response = await axios.${e.method}("${e.endpoint}", {
+      params: payload ?? null,
       headers: authToken
-      ? {
-        Authorization: \`Bearer \${authToken}\`,
-        }
-      : {},
+        ? {
+            Authorization: \`Bearer \${authToken}\`,
+          }
+        : {},
+      }
     });
 
     return response.data;
