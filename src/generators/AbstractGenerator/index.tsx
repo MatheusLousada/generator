@@ -46,7 +46,6 @@ export default function ${idContainer}() {
 
   public generateRequest(): string {
     let response = `
-import { AxiosInstance } from "axios";
 
 interface FetchParams {
   axios: AxiosInstance;
@@ -69,12 +68,15 @@ interface FetchParams {
       response =
         response +
         `
-export const fetch${result} = async ({ axios, authToken, payload }: FetchParams) => {
+export const fetch${result} = async ({ axios, payload, authToken }: FetchParams) => {
   try {
-    const response = await axios.${e.method}("${e.endpoint}", payload ?? null, {
-      headers: {
+    const response = await axios.${e.method}("${e.endpoint}", 
+      params: payload ?? null, {
+      headers: authToken
+      ? {
         Authorization: \`Bearer \${authToken}\`,
-      },
+        }
+      : {},
     });
 
     return response.data;
