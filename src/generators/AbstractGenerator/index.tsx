@@ -46,11 +46,12 @@ export default function ${idContainer}() {
 
   public generateRequest(): string {
     let response = `
+import { AxiosInstance } from "axios";
 
 interface FetchParams {
   axios: AxiosInstance;
-  authToken: string;
   payload?: any;
+  authToken: string;
 }
 `;
 
