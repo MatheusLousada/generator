@@ -51,7 +51,7 @@ import { AxiosInstance } from "axios";
 interface FetchParams {
   axios: AxiosInstance;
   payload?: any;
-  authToken: string;
+  authToken?: string;
 }
 `;
 
