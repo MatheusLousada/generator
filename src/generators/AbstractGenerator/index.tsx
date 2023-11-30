@@ -78,7 +78,6 @@ export const fetch${result} = async ({ axios, payload, authToken }: FetchParams)
             Authorization: \`Bearer \${authToken}\`,
           }
         : {},
-      }
     });
 
     return response.data;
