@@ -95,7 +95,7 @@ class GeneratorService {
   ) {
     if (componentData.requestContent) {
       this.requestsFolder?.file(
-        elementType + `Requests_${count}.tsx`,
+        elementType + `Requests${count}.tsx`,
         componentData.requestContent
       );
     }
