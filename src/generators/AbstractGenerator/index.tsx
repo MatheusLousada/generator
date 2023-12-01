@@ -51,7 +51,7 @@ import { AxiosInstance } from "axios";
 interface FetchParams {
   axios: AxiosInstance;
   payload?: any;
-  authToken?: string;
+  authToken?: {};
 }
 `;
 
@@ -73,11 +73,7 @@ export const fetch${result} = async ({ axios, payload, authToken }: FetchParams)
   try {
     const response = await axios.${e.method}("${e.endpoint}", {
       params: payload ?? null,
-      headers: authToken
-        ? {
-            Authorization: \`Bearer \${authToken}\`,
-          }
-        : {},
+      headers: authToken ?? {},
     });
 
     return response.data;

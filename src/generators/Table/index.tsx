@@ -8,7 +8,7 @@ class TableGenerator extends AbstractGenerator {
   }
 
   getParameters(): string[] {
-    return ["items"];
+    return ["columns", "rows"];
   }
 
   generateView(): string {
