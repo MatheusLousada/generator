@@ -18,13 +18,20 @@ class SelectGenerator extends AbstractGenerator {
   generateView(): string {
     return `
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { Box, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 
-export default function ${this.type}${this.count}({ selectedValue, handleChange, label, options }) {
+interface ComponentsEndpoints {
+  value: string;
+  label: string;
+}
+
+export interface SelectGeneratorProps {
+  type: string;
+  endpoints: ComponentsEndpoints[];
+  count: number;
+}
+
+export default function ${this.type}${this.count}({ selectedValue, handleChange, label, options }: SelectGeneratorProps) {
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl fullWidth>
@@ -36,7 +43,7 @@ export default function ${this.type}${this.count}({ selectedValue, handleChange,
           label="{label}"
           onChange={handleChange}
         >
-          {options.map((option) => (
+          {options && options.map((option) => (
             <MenuItem value={option.value}>{option.label}</MenuItem>
           ))}
         </Select>

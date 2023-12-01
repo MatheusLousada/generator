@@ -21,7 +21,11 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 
-export default function ${this.type}${this.count}({ buttonText }) {
+interface ButtonProps {
+  buttonText: string;
+}
+
+export default function ${this.type}${this.count}({ buttonText }: ButtonProps) {
   return ( <Button variant="contained">{ buttonText }</Button> );
 }`;
   }

@@ -18,10 +18,14 @@ class TextFieldGenerator extends AbstractGenerator {
   generateView(): string {
     return `
 import * as React from 'react';
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import TextField from '@mui/material/TextField';
 
-export default function ${this.type}${this.count}({textFields}) {
+interface TextFieldProps {
+  textFields: any[];
+}
+
+export default function ${this.type}${this.count}({textFields}: TextFieldProps) {
   return (
     <Box
       component="form"
@@ -31,7 +35,7 @@ export default function ${this.type}${this.count}({textFields}) {
       noValidate
       autoComplete="off"
     >
-      {textFields.map((textField) => {
+      {textFields && textFields.map((textField) => {
         <TextField id="" label="" variant="" />
       })}
     </Box>

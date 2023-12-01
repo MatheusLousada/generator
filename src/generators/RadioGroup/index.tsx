@@ -18,13 +18,17 @@ class RadioGroupGenerator extends AbstractGenerator {
   generateView(): string {
     return `
 import * as React from 'react';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel } from '@mui/material';
 
-export default function ${this.type}${this.count}({ selectedValue, handleChange, options, label }) {
+interface RadioGroupProps {
+  selectedValue: string;
+  handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  options: { value: string; label: string }[];
+  label: string;
+}
+
+
+export default function ${this.type}${this.count}({ selectedValue, handleChange, options, label }: RadioGroupProps) {
   return (
     <FormControl>
       <FormLabel id="${this.type}-${this.count}-label">{label}</FormLabel>
@@ -34,7 +38,7 @@ export default function ${this.type}${this.count}({ selectedValue, handleChange,
         name="${this.type}-${this.count}-group"
         onChange={handleChange}
       >
-        {options.map((option) => {
+        {options && options.map((option) => {
             <FormControlLabel value="" control={<Radio />} label="" />
         })}
       </RadioGroup>

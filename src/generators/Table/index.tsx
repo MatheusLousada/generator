@@ -13,35 +13,33 @@ class TableGenerator extends AbstractGenerator {
 
   generateView(): string {
     return `
-import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
-export default function ${this.type}${this.count}({ columns, rows }) {
+interface TableProps {
+  columns: string[];
+  rows: { [key: string]: any }[];
+}
+
+export default function ${this.type}${this.count}({ columns, rows }: TableProps) {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            {columns.map((column) => (
-              <TableCell key={column}>{column}</TableCell>
+            {columns && columns.map((column) => (
+              <TableCell key={column}>{column.toUpperCase()}</TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {rows && rows.map((row) => (
             <TableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              {columns.map((column) => (
+              {columns && columns.map((column) => (
                 <TableCell key={column} component="th" scope="row">
-                  {row[column]}
+                  {typeof row[column] === 'boolean' ? (row[column] ? 'Sim' : 'Não') : row[column]}
                 </TableCell>
               ))}
             </TableRow>
