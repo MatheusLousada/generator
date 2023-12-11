@@ -56,9 +56,8 @@ class GeneratorService {
       );
       const containerContent = generator.generateContainer();
       const fileContent = generator.generateView();
-      const requestContent = endpoint && endpoint?.endpoints 
-        ? generator.generateRequest() 
-        : null;
+      const requestContent =
+        endpoint && endpoint?.endpoints ? generator.generateRequest() : null;
 
       return {
         containerContent,
@@ -90,12 +89,11 @@ class GeneratorService {
 
   private generateComponentRequestsFiles(
     componentData: ComponentData,
-    elementType: string,
-    count: number
+    elementType: string
   ) {
     if (componentData.requestContent) {
       this.requestsFolder?.file(
-        elementType + `Requests${count}.tsx`,
+        elementType + `Requests.tsx`,
         componentData.requestContent
       );
     }
@@ -144,12 +142,12 @@ class GeneratorService {
         );
 
         if (componentData) {
-          this.generateComponentFiles(componentData, componentType, count);
-          this.generateComponentRequestsFiles(
-            componentData,
-            componentType,
-            count
-          );
+          const componentsAmount = component?.amount ?? 0;
+          for (let index = 1; index <= componentsAmount; index++) {
+            this.generateComponentFiles(componentData, componentType, index);
+          }
+
+          this.generateComponentRequestsFiles(componentData, componentType);
         }
 
         count++;

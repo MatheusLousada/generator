@@ -30,7 +30,7 @@ export default function ${this.type}${this.count}({ items }: ListProps) {
       <List>
         {items && items.map((item) => (
           <ListItem key={}>
-            <ListItemText primary={} />
+            <ListItemText key={} primary={} />
           </ListItem>
         ))}
       </List>

@@ -36,7 +36,7 @@ export default function ${this.type}${this.count}({textFields}: TextFieldProps) 
       autoComplete="off"
     >
       {textFields && textFields.map((textField) => {
-        <TextField id="" label="" variant="" />
+        <TextField key={} id="" label="" variant="" />
       })}
     </Box>
   );

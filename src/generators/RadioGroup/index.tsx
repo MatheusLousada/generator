@@ -39,7 +39,7 @@ export default function ${this.type}${this.count}({ selectedValue, handleChange,
         onChange={handleChange}
       >
         {options && options.map((option) => {
-            <FormControlLabel value="" control={<Radio />} label="" />
+            <FormControlLabel key={} value="" control={<Radio />} label="" />
         })}
       </RadioGroup>
     </FormControl>

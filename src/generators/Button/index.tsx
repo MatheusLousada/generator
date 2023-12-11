@@ -26,7 +26,7 @@ interface ButtonProps {
 }
 
 export default function ${this.type}${this.count}({ buttonText }: ButtonProps) {
-  return ( <Button variant="contained">{ buttonText }</Button> );
+  return ( <Button variant="contained" key={}>{ buttonText }</Button> );
 }`;
   }
 }

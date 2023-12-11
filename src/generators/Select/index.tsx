@@ -44,7 +44,7 @@ export default function ${this.type}${this.count}({ selectedValue, handleChange,
           onChange={handleChange}
         >
           {options && options.map((option) => (
-            <MenuItem value={option.value}>{option.label}</MenuItem>
+            <MenuItem key={} value={option.value}>{option.label}</MenuItem>
           ))}
         </Select>
       </FormControl>
